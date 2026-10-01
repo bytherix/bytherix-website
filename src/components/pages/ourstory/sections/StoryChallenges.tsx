@@ -19,8 +19,7 @@ const StoryChallenges = () => {
           <div className="space-y-6 sm:space-y-8">
             <div className="space-y-3 sm:space-y-4">
               <h3 className="text-3xl font-bold leading-tight text-[var(--accent-red)] sm:text-4xl lg:text-5xl">Things went wrong.</h3>
-              <p className="max-w-7xl text-base leading-relaxed text-[var(--text-secondary)] sm:text-lg">Projects failed. Money was tight. Plans changed. Everything seemed harder than expected.</p>
-            </div>
+              </div>
 
             <div className="grid grid-cols-1 gap-3 border-y border-[var(--border-primary)] py-6 sm:grid-cols-2 sm:gap-4 sm:py-8">
               {CHALLENGES.map((challenge) => (

@@ -22,7 +22,7 @@ const StoryBeliefs = () => {
             <div className="flex items-center gap-3">
              <h2 className="text-lg font-bold sm:text-xl md:text-2xl lg:text-3xl">What we believe</h2>
             </div>
-            <p className="text-sm text-[var(--text-secondary)] sm:text-base md:text-lg">These core beliefs have guided every decision from day one and continue to shape Bytherix Technology.</p>
+           
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:gap-8">
