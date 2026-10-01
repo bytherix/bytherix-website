@@ -140,25 +140,29 @@ export const DROPDOWN_CONTENT: Record<string, DropdownSection[]> = {
   //   },
   // ],
 
-  Products: [
-    {
-      heading: "Products",
-      sectionIcon: Box,
-      items: [
-        { label: "Founder", icon: Swords },
-      ],
-    },
-    {
-      heading: "Solutions",
-      sectionIcon: BriefcaseBusiness,
-      items: [
-        {
-          label: "One For All Management System",
-          icon: BriefcaseBusiness,
-        },
-      ],
-    },
-  ],
+Products: [
+  {
+    heading: "Products",
+    sectionIcon: Box,
+    items: [
+      { label: "Founder", icon: Swords },
+    ],
+  },
+  {
+    heading: "Solutions",
+    sectionIcon: BriefcaseBusiness,
+    items: [
+      {
+        label: "One For All Management System",
+        icon: BriefcaseBusiness,
+      },
+      {
+        label: "PAM",
+        icon: BriefcaseBusiness,
+      },
+    ],
+  },
+],
 
   Shop: [
     {

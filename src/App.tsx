@@ -42,6 +42,10 @@ const OneForAll = lazy(
   () => import("./components/pages/products/pages/one-for-all/OneForAllPage")
 );
 
+const PAM = lazy(
+  () => import("./components/pages/products/pages/PAM/PAMPage")
+);
+
 const OurPortfolios = lazy(
   () => import("./components/pages/portfolios/PortfolioPage")
 );
@@ -210,6 +214,11 @@ function App() {
               <Route
                 path="/products/one-for-all"
                 element={<OneForAll />}
+              />
+
+              <Route
+                path="/products/pam"
+                element={<PAM />}
               />
 
               {/* Portfolios */}

@@ -22,7 +22,7 @@ export default function AllProducts({ filter }: AllProductsProps) {
       className="scroll-mt-20 px-4 py-10 sm:px-6 sm:py-12 lg:px-10 lg:py-14 xl:px-[60px]"
     >
       <div className="mx-auto max-w-7xl">
-        {/* Section Introduction */}
+        {/* Section Introduction
         <div className="max-w-3xl">
           <p className="text-2xl font-semibold tracking-wide text-[#0084BD] dark:text-[#00AEEF]">
             Explore Products
@@ -33,7 +33,7 @@ export default function AllProducts({ filter }: AllProductsProps) {
             from Bytherix, designed to simplify workflows, improve operations,
             and create better digital experiences.
           </p>
-        </div>
+        </div> */}
 
         {/* Featured Product — All Products Only */}
         <AnimatePresence mode="popLayout">
@@ -45,7 +45,7 @@ export default function AllProducts({ filter }: AllProductsProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="mt-8 sm:mt-10"
+              className="mt-5 sm:mt-10"
             >
               <FeaturedProduct />
             </motion.div>
