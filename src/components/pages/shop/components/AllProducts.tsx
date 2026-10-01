@@ -28,10 +28,6 @@ export default function AllProducts({ filter }: AllProductsProps) {
             Explore Products
           </p>
 
-          <h2 className="mt-2 text-3xl font-semibold leading-tight tracking-[-0.035em] text-slate-950 sm:text-4xl lg:text-5xl dark:text-white">
-            Products built for real needs.
-          </h2>
-
           <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7 dark:text-slate-400">
             Discover focused digital products and connected software experiences
             from Bytherix, designed to simplify workflows, improve operations,
@@ -73,7 +69,7 @@ export default function AllProducts({ filter }: AllProductsProps) {
             >
               <div className="mb-5">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-2xl font-semibold tracking-[-0.02em] text-[#0084BD] dark:text-[#00AEEF]">
+                  <h3 className="text-2xl font-semibold tracking-[-0.02em] text-[#FF3B30] dark:text-[#FF3B30]">
                     Digital Products
                   </h3>
                 </div>
@@ -114,7 +110,7 @@ export default function AllProducts({ filter }: AllProductsProps) {
             >
               <div className="mb-5">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-2xl font-semibold tracking-[-0.02em] text-[#0084BD] dark:text-[#00AEEF]">
+                  <h3 className="text-2xl font-semibold tracking-[-0.02em] text-[#FF3B30] dark:text-[#FF3B30]">
                     Software
                   </h3>
                 </div>

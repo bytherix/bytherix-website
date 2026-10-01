@@ -71,9 +71,9 @@ export default function Team() {
             <span className="text-[#3157D5]">behind Bytherix.</span>
           </h2>
 
-          <p className="mt-3 max-w-lg text-[10px] leading-[1.7] text-[var(--text-secondary)] sm:mt-4 sm:text-xs">
+          {/* <p className="mt-3 max-w-lg text-[10px] leading-[1.7] text-[var(--text-secondary)] sm:mt-4 sm:text-xs">
             The people behind the ideas, products and experiences we build at Bytherix.
-          </p>
+          </p> */}
         </div>
 
         {/* TEAM CAROUSEL */}
