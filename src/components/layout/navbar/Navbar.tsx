@@ -82,6 +82,7 @@ const Navbar = ({ docked }: NavbarProps) => {
       "Blogs & Articles": "/blogs",
       Founder: "/products/our-founder",
       "One For All Management System": "/products/one-for-all",
+      "PAM": "/products/pam",
       "All Products": "/shop",
       "Digital Products": "/shop",
       Software: "/shop",

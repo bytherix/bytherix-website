@@ -22,22 +22,18 @@ export default function AllProducts({ filter }: AllProductsProps) {
       className="scroll-mt-20 px-4 py-10 sm:px-6 sm:py-12 lg:px-10 lg:py-14 xl:px-[60px]"
     >
       <div className="mx-auto max-w-7xl">
-        {/* Section Introduction */}
+        {/* Section Introduction
         <div className="max-w-3xl">
           <p className="text-2xl font-semibold tracking-wide text-[#0084BD] dark:text-[#00AEEF]">
             Explore Products
           </p>
-
-          <h2 className="mt-2 text-3xl font-semibold leading-tight tracking-[-0.035em] text-slate-950 sm:text-4xl lg:text-5xl dark:text-white">
-            Products built for real needs.
-          </h2>
 
           <p className="mt-4 max-w-2xl text-sm leading-6 text-slate-600 sm:text-base sm:leading-7 dark:text-slate-400">
             Discover focused digital products and connected software experiences
             from Bytherix, designed to simplify workflows, improve operations,
             and create better digital experiences.
           </p>
-        </div>
+        </div> */}
 
         {/* Featured Product — All Products Only */}
         <AnimatePresence mode="popLayout">
@@ -49,7 +45,7 @@ export default function AllProducts({ filter }: AllProductsProps) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
-              className="mt-8 sm:mt-10"
+              className="mt-5 sm:mt-10"
             >
               <FeaturedProduct />
             </motion.div>
@@ -73,7 +69,7 @@ export default function AllProducts({ filter }: AllProductsProps) {
             >
               <div className="mb-5">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-2xl font-semibold tracking-[-0.02em] text-[#0084BD] dark:text-[#00AEEF]">
+                  <h3 className="text-2xl font-semibold tracking-[-0.02em] text-[#FF3B30] dark:text-[#FF3B30]">
                     Digital Products
                   </h3>
                 </div>
@@ -114,7 +110,7 @@ export default function AllProducts({ filter }: AllProductsProps) {
             >
               <div className="mb-5">
                 <div className="flex items-center gap-3">
-                  <h3 className="text-2xl font-semibold tracking-[-0.02em] text-[#0084BD] dark:text-[#00AEEF]">
+                  <h3 className="text-2xl font-semibold tracking-[-0.02em] text-[#FF3B30] dark:text-[#FF3B30]">
                     Software
                   </h3>
                 </div>

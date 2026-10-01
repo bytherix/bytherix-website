@@ -16,7 +16,7 @@ export const teamMembers: TeamMember[] = [
     id: 1,
     name: "Anish Parajuli",
     role: "Founder & CEO",
-    image: "/team/founder.svg",
+    image: "/team/anish.png",
     slug: "anish-parajuli",
     description:
       "My vision is to create meaningful technology that inspires people and contributes to a smarter future.",
@@ -47,7 +47,7 @@ Maybe I don't need one label. I'm an engineer, a developer, a tech enthusiast â€
     id: 2,
     name: "Nikesh Munikar",
     role: "Managing Director",
-    image: "/team/md.svg",
+    image: "/team/nikesh.jpeg",
     slug: "nikesh-munikar",
     description: "Short description about the team member.",
     journeying:

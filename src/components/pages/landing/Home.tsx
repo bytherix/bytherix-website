@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 
 const Hero = lazy(() => import("./sections/hero/Hero"));
+const Partnership = lazy(() => import("./sections/partnership/Partnership"));
 const About = lazy(() => import("./sections/about/About"));
 const Services = lazy(() => import("./sections/ourservices/Services"));
 const Courses = lazy(() => import("./sections/courses/Courses"));
@@ -18,9 +19,13 @@ function Home({ docked }: HomeProps) {
     <Suspense fallback={null}>
       <Hero docked={docked} />
 
+      <section id="partnership" className="scroll-mt-24">
+        <Partnership />
+      </section>
+
       <section id="about" className="scroll-mt-24">
         <About />
-      </section> 
+      </section>
 
       <section id="services" className="scroll-mt-24">
         <Services />

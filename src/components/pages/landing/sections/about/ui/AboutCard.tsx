@@ -1,9 +1,8 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { motion, type MotionValue } from "framer-motion";
-
 import type { BuilderSlide } from "../constants/about.data";
 
 interface AboutCardProps {
@@ -142,7 +141,7 @@ export default function AboutCard({
                 src={currentSlide.image}
                 alt={`Bytherix experience ${displayedSlide + 1}`}
                 draggable={false}
-                className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain object-center"
+                className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover object-center"
               />
 
               <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#3157d5]/8 via-transparent to-transparent dark:from-black/25" />
@@ -169,7 +168,7 @@ export default function AboutCard({
                 src={backSlide.image}
                 alt={`Bytherix experience ${backSlideIndex + 1}`}
                 draggable={false}
-                className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain object-center"
+                className="pointer-events-none absolute inset-0 h-full w-full select-none object-cover object-center"
               />
 
               <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#fd3b30]/7 via-transparent to-transparent dark:from-black/25" />

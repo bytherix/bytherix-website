@@ -16,6 +16,7 @@ export interface PortfolioProject {
 
 import vitalGymImage from "../../../../assets/portfolio/vital-gym.png";
 import pokharaResortImage from "../../../../assets/portfolio/pokhara-resort.png";
+import BrackenImage from "../../../../assets/portfolio/bracken.png";
 
 export const portfolioProjects: PortfolioProject[] = [
   {
@@ -89,4 +90,36 @@ export const portfolioProjects: PortfolioProject[] = [
       },
     ],
   },
+  {
+  id: 2,
+  number: "02",
+  title: "Bracken & Vance",
+  category: "Construction & Civil Engineering",
+  description:
+    "Building the Future With Strength, Precision & Vision through high-quality commercial, residential, and infrastructure projects.",
+  longDescription:
+    "Bracken & Vance is a full-service construction and civil engineering firm website designed to showcase featured construction projects, comprehensive services, project processes, client testimonials, and a streamlined request-a-quote interface.",
+  image: BrackenImage, 
+  liveUrl: "https://bracken-and-vance.vercel.app/", 
+  technologies: ["React", "TypeScript", "Tailwind CSS", "Responsive UI"],
+  features: [
+    "Construction and civil engineering service presentation",
+    "Featured projects portfolio showcase",
+    "Structured six-step project process timeline",
+    "Standards, safety, and quality assurance highlights",
+    "Client feedback and testimonials section",
+    "Interactive quote request and contact form",
+  ],
+  stats: [
+    {
+      value: "Construction",
+    },
+    {
+      value: "Engineering",
+    },
+    {
+      value: "Infrastructure",
+    },
+  ],
+},
 ];

@@ -28,7 +28,7 @@ export const digitalProducts: ProductItem[] = [
     category: "digital",
     label: "Digital Product",
     action: "Explore PAM",
-    href: "#",
+    href: "/products/PAM",
     accent: "blue",
     tags: ["Digital", "Workflow", "Product"],
     image: pemImage,

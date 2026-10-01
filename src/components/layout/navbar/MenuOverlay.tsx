@@ -430,7 +430,7 @@ const MenuOverlay = ({
                   />
                 </button>
 
-                {/* Demon Hunter */}
+                {/* Demon Hunter
 
                 <Link
                   to="/demon-hunter"
@@ -443,7 +443,7 @@ const MenuOverlay = ({
                     alt="Demon Hunter"
                     className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
                   />
-                </Link>
+                </Link> */}
 
                 {/* Notifications */}
 

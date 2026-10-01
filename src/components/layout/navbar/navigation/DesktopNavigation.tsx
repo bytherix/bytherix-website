@@ -288,7 +288,7 @@ const DesktopNavigation = ({
           <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-[#FF6575] ring-2 ring-[#080F29]" />
         </button>
 
-        {/* Demon Hunter */}
+        {/* Demon Hunter
         <Link
           to="/demon-hunter"
           aria-label="Demon Hunter"
@@ -299,7 +299,7 @@ const DesktopNavigation = ({
             alt="Demon Hunter"
             className="h-full w-full object-cover transition-all duration-200 group-hover:scale-105"
           />
-        </Link>
+        </Link> */}
 
         {/* User Menu */}
         {/* <div className="relative" ref={userMenuRef}>

@@ -1,9 +1,8 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-// import { developmentNote } from "../data/oneForAllContent";
 
-const OneForAllCTA = () => {
+const PAMCTA = () => {
   const reducedMotion = useReducedMotion();
 
   return (
@@ -22,13 +21,13 @@ const OneForAllCTA = () => {
 
         <div className="relative">
           <h2 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl">
-            One account. Every business you run.
+            One device. Every key vital, in real time.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-base leading-7 text-[var(--text-secondary)]">
-            One For All is being built by Bytherix Technology to bring your
-            operations, data, employees and customers into a single
-            platform. Reach out to follow its progress or talk through what
-            your business needs.
+            ARCK 103 PAM is being developed by Bytherix Technology as a
+            compact patient-monitoring device for ECG, SpO2, pulse and
+            temperature. Reach out to follow its progress or talk through
+            your monitoring needs.
           </p>
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
@@ -47,14 +46,10 @@ const OneForAllCTA = () => {
               Meet the founder
             </Link>
           </div>
-
-          {/* <p className="mx-auto mt-8 max-w-lg text-xs leading-6 text-[var(--text-muted)]">
-            {developmentNote}
-          </p> */}
         </div>
       </motion.div>
     </section>
   );
 };
 
-export default OneForAllCTA;
+export default PAMCTA;

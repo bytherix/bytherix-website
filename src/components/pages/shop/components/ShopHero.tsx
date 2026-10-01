@@ -26,8 +26,7 @@ export default function ShopHero() {
   return (
     <section
       ref={ref}
-      className="relative isolate min-h-[620px] overflow-hidden bg-white px-5 pb-14 pt-14 text-slate-950 dark:bg-[#020817] dark:text-white sm:min-h-[650px] sm:px-8 sm:pb-16 sm:pt-16 lg:min-h-[585px] lg:px-[60px] lg:pb-16 lg:pt-16"
-    >
+      className="sticky top-0 z-30 border-y border-slate-200/80 bg-white/85 px-4 py-2 backdrop-blur-xl dark:border-white/[0.07] dark:bg-[#020817]/85 sm:px-6 lg:px-10 xl:px-[60px]">
       {/* =====================================================
           NETWORK BACKGROUND
       ===================================================== */}
@@ -52,38 +51,12 @@ export default function ShopHero() {
           }}
           className="relative max-w-4xl"
         >
-          {/* =================================================
-              EYEBROW
-          ================================================= */}
-
-          {/* <div className="mb-5 flex items-center gap-2 font-Inter text-sm font-semibold tracking-[0.01em] sm:text-base lg:text-lg">
-            <span className="animate-gradient bg-[length:200%_auto] bg-gradient-to-r from-[#0E9F78] via-[#0088C7] to-[#3157D5] bg-clip-text dark:from-[#20C997] dark:via-[#00AEEF] dark:via-[#38BDF8] dark:to-[#3157D5] text-transparent">
-              Bytherix Product Ecosystem
-            </span> 
-          </div> */}
-
-          {/* =================================================
-              MAIN HEADING
-          ================================================= */}
-
-          <h1 className="text-5xl font-semibold leading-[0.95] tracking-[-0.055em] sm:text-6xl md:text-7xl lg:text-8xl">
-            <span className="animate-gradient bg-[linear-gradient(90deg,#0E9F78,#0088C7,#3157D5,#0088C7,#0E9F78)] dark:bg-[linear-gradient(90deg,#20C997,#00AEEF,#3157D5,#00AEEF,#20C997)] bg-[length:250%_100%] bg-clip-text text-transparent">
-              BUILD
-            </span>
-
-            <br />
-
-            <span className="animate-gradient bg-[linear-gradient(90deg,#0088C7,#3157D5,#4F46E5,#0088C7,#3157D5)] dark:bg-[linear-gradient(90deg,#00AEEF,#3157D5,#6366F1,#00AEEF,#3157D5)] bg-[length:250%_100%] bg-clip-text text-transparent">
-              DEPLOY
-            </span>
-
-            <br />
-
-            <span className="animate-gradient bg-[linear-gradient(90deg,#E0281D,#E85D04,#D97706,#0E9F78,#3F7A58,#E0281D)] dark:bg-[linear-gradient(90deg,#FF3B30,#FF6B00,#F59E0B,#20C997,#568D6C,#FF3B30)] bg-[length:250%_100%] bg-clip-text text-transparent">
-              EXPERIENCE
-            </span>
-          </h1>
-
+          <h1 className="font-bold tracking-[-0.035em] text-[#0E1F5A] text-[36px] leading-none dark:text-white sm:text-6xl lg:text-7xl xl:text-[72px]"> 
+            Our  
+            <span className="text-[var(--color-navy)] m-4"> 
+              Shop 
+              </span> 
+              </h1>
           {/* =================================================
               DESCRIPTION
           ================================================= */}
@@ -98,7 +71,7 @@ export default function ShopHero() {
               EXPLORE PRODUCTS
           ================================================= */}
 
-          <a
+          {/* <a
             href="#products"
             className="group mt-8 inline-flex items-center gap-3 text-sm font-semibold text-slate-600 transition-colors duration-300 hover:text-[#0084BD] dark:text-slate-300 dark:hover:text-[#00AEEF]"
           >
@@ -107,7 +80,7 @@ export default function ShopHero() {
             </span>
 
             Explore Products
-          </a>
+          </a> */}
         </motion.div>
 
         {/* =====================================================
