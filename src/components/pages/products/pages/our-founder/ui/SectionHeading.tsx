@@ -20,6 +20,7 @@ const toneClass: Record<
 };
 
 const SectionHeading = ({
+  eyebrow: _eyebrow,
   title,
   description,
   align = "left",

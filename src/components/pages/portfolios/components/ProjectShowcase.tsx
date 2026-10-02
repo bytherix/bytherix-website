@@ -7,12 +7,10 @@ import type { PortfolioProject } from "../data/PortfolioData";
 
 interface ProjectShowcaseProps {
   project: PortfolioProject;
-  index: number;
 }
 
 const ProjectShowcase = ({
-  project,
-  index,
+  project
 }: ProjectShowcaseProps) => {
   const reverse = true;
 

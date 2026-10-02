@@ -2,35 +2,20 @@ import type { Variants } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 
 import {
-  Blocks,
   BookOpen,
-  Bot,
   Box,
   BriefcaseBusiness,
   Building2,
-  ChartNoAxesCombined,
   CircleHelp,
-  CloudCog,
-  Code2,
-  Contact,
-  Cpu,
-  Gamepad2,
   GraduationCap,
   Headset,
-  Layers3,
   Mail,
-  Megaphone,
   MessageSquareQuote,
   Newspaper,
-  Palette,
-  PenTool,
-  ShieldCheck,
-  ShoppingBag,
   Sparkles,
   Store,
   Swords,
   Users,
-  Wrench,
 } from "lucide-react";
 
 export const BRAND = "BYTHERIX";

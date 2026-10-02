@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { Crown } from "lucide-react";
+
 
 import { antagonist } from "../data/founderContent";
 import { queenWitchesImage } from "../data/founderImages";
@@ -22,8 +22,6 @@ const FounderQueen = () => {
   });
 
   const veilOpacity = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const silhouetteScale = useTransform(scrollYProgress, [0, 1], [0.86, 1]);
-  const silhouetteOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.9]);
   const bgOpacity = useTransform(scrollYProgress, [0, 1], [0, 0.55]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1.12, 1]);
 
