@@ -10,7 +10,7 @@ import {
   useSpring,
 } from "framer-motion";
 
-import { ArrowUpRight } from "lucide-react";
+// import { ArrowDown } from "lucide-react";
 
 import type { Service } from "../data/services";
 

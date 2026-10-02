@@ -30,11 +30,10 @@ const PortfolioProjects = () => {
       </div>
 
       <div className="mt-2">
-        {portfolioProjects.map((project, index) => (
+        {portfolioProjects.map((project) => (
           <ProjectShowcase
             key={project.id}
             project={project}
-            index={index}
           />
         ))}
       </div>

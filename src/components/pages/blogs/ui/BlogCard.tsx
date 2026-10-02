@@ -1,7 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import type { BlogPost } from "../../data/blog.constants";
+import type { BlogPost } from "../data/blog.constants";
 
 interface BlogCardProps {
   post: BlogPost;

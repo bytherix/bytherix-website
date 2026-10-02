@@ -1,5 +1,4 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { ArrowDown } from "lucide-react";
 import { useRef } from "react";
 import ProductNetworkBackground from "./ProductNetworkBackground";
 
@@ -11,22 +10,15 @@ export default function ShopHero() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(
-    scrollYProgress,
-    [0, 1],
-    [0, -55],
-  );
+  const y = useTransform(scrollYProgress, [0, 1], [0, -55]);
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [0, 0.82],
-    [1, 0],
-  );
+  const opacity = useTransform(scrollYProgress, [0, 0.82], [1, 0]);
 
   return (
     <section
       ref={ref}
-      className="sticky top-0 z-30 border-y border-slate-200/80 bg-white/85 px-4 py-2 backdrop-blur-xl dark:border-white/[0.07] dark:bg-[#020817]/85 sm:px-6 lg:px-10 xl:px-[60px]">
+      className="sticky top-0 z-30 border-y border-slate-200/80 bg-white/85 px-4 py-2 backdrop-blur-xl dark:border-white/[0.07] dark:bg-[#020817]/85 sm:px-6 lg:px-10 xl:px-[60px]"
+    >
       {/* =====================================================
           NETWORK BACKGROUND
       ===================================================== */}
@@ -51,20 +43,17 @@ export default function ShopHero() {
           }}
           className="relative max-w-4xl"
         >
-          <h1 className="font-bold tracking-[-0.035em] text-[#0E1F5A] text-[36px] leading-none dark:text-white sm:text-6xl lg:text-7xl xl:text-[72px]"> 
-            Our  
-            <span className="text-[var(--color-navy)] m-4"> 
-              Shop 
-              </span> 
-              </h1>
+          <h1 className="font-bold tracking-[-0.035em] text-[#0E1F5A] text-[36px] leading-none dark:text-white sm:text-6xl lg:text-7xl xl:text-[72px]">
+            Our
+            <span className="text-[var(--color-navy)] m-4"> Shop </span>
+          </h1>
           {/* =================================================
               DESCRIPTION
           ================================================= */}
 
           <p className="mt-6 max-w-2xl text-base leading-7 text-slate-600 dark:text-slate-300 sm:text-lg sm:leading-8">
-            Explore digital products and software experiences
-            created by Bytherix for modern organizations, teams,
-            and everyday workflows.
+            Explore digital products and software experiences created by
+            Bytherix for modern organizations, teams, and everyday workflows.
           </p>
 
           {/* =================================================

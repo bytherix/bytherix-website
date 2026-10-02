@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../../../context/AuthContext";
 
 import {
@@ -18,7 +18,14 @@ import {
   Send,
 } from "lucide-react";
 
-import { FaLinkedin, FaGithub, FaInstagram, FaYoutube, FaFacebook, FaTiktok } from "react-icons/fa";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaInstagram,
+  FaYoutube,
+  FaFacebook,
+  FaTiktok,
+} from "react-icons/fa";
 
 import {
   NAV_ITEMS,
@@ -39,32 +46,32 @@ interface DesktopNavigationProps {
   handleNavItemClick: (item: string) => void;
 }
 
-const userMenuVariants = {
-  hidden: {
-    opacity: 0,
-    y: -8,
-    scale: 0.96,
-  },
+// const userMenuVariants = {
+//   hidden: {
+//     opacity: 0,
+//     y: -8,
+//     scale: 0.96,
+//   },
 
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.18,
-      ease: [0.22, 1, 0.36, 1] as const,
-    },
-  },
+//   visible: {
+//     opacity: 1,
+//     y: 0,
+//     scale: 1,
+//     transition: {
+//       duration: 0.18,
+//       ease: [0.22, 1, 0.36, 1] as const,
+//     },
+//   },
 
-  exit: {
-    opacity: 0,
-    y: -6,
-    scale: 0.96,
-    transition: {
-      duration: 0.12,
-    },
-  },
-};
+//   exit: {
+//     opacity: 0,
+//     y: -6,
+//     scale: 0.96,
+//     transition: {
+//       duration: 0.12,
+//     },
+//   },
+// };
 
 /* Social links shown in the "Follow Us" row of the Company mega menu. */
 const SOCIAL_LINKS = [
@@ -111,9 +118,9 @@ const DesktopNavigation = ({
   handleNavItemClick,
 }: DesktopNavigationProps) => {
   // const { isAuthenticated, logout } = useAuth();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  // const [userMenuOpen, setUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement | null>(null);
 
   const [newsletterEmail, setNewsletterEmail] = useState("");
@@ -124,7 +131,7 @@ const DesktopNavigation = ({
         userMenuRef.current &&
         !userMenuRef.current.contains(event.target as Node)
       ) {
-        setUserMenuOpen(false);
+        // setUserMenuOpen(false);
       }
     };
 
@@ -213,9 +220,7 @@ const DesktopNavigation = ({
                 <button
                   type="button"
                   onClick={() =>
-                    setActiveDropdown(
-                      isDropdownOpen ? null : item.label,
-                    )
+                    setActiveDropdown(isDropdownOpen ? null : item.label)
                   }
                   className={`group relative flex items-center gap-1.5 whitespace-nowrap font-['Inter'] text-[12px] font-bold uppercase tracking-[0.035em] transition-all duration-200 ${
                     isHovered ? "text-[#00AEEF]" : "text-white/85"
@@ -227,9 +232,7 @@ const DesktopNavigation = ({
                     size={12}
                     strokeWidth={2}
                     className={`transition-all duration-200 ${
-                      isHovered
-                        ? "rotate-180 text-[#00AEEF]"
-                        : "text-white/65"
+                      isHovered ? "rotate-180 text-[#00AEEF]" : "text-white/65"
                     }`}
                   />
 
@@ -404,9 +407,7 @@ const DesktopNavigation = ({
             initial="hidden"
             animate="visible"
             exit="exit"
-            onMouseEnter={() =>
-              setHoveredNavItem(activeDropdown)
-            }
+            onMouseEnter={() => setHoveredNavItem(activeDropdown)}
             onMouseLeave={() => {
               setActiveDropdown(null);
               setHoveredNavItem(null);
@@ -422,9 +423,7 @@ const DesktopNavigation = ({
                 <div className="flex justify-center px-7 pt-7">
                   <button
                     type="button"
-                    onClick={() =>
-                      handleDropdownItemClick("Our Services")
-                    }
+                    onClick={() => handleDropdownItemClick("Our Services")}
                     className="group inline-flex items-center gap-2 rounded-full border border-[#00AEEF]/30 bg-[#00AEEF]/[0.06] px-6 py-3 font-['Inter'] text-[11px] font-bold uppercase tracking-[0.1em] text-white/90 transition-all duration-200 hover:border-[#00AEEF]/70 hover:bg-[#00AEEF]/[0.12] hover:text-[#00AEEF]"
                   >
                     <span>Our Services</span>
@@ -475,9 +474,7 @@ const DesktopNavigation = ({
                               />
                             </span>
 
-                            <span>
-                              {column.heading}
-                            </span>
+                            <span>{column.heading}</span>
                           </p>
 
                           <div className="ml-14 mt-1.5 h-px w-10 bg-[#20C997]/70" />
@@ -492,9 +489,7 @@ const DesktopNavigation = ({
                               icon={item.icon}
                               sub={item.sub}
                               onClick={() =>
-                                handleDropdownItemClick(
-                                  item.label,
-                                )
+                                handleDropdownItemClick(item.label)
                               }
                             />
                           ))}
@@ -512,10 +507,7 @@ const DesktopNavigation = ({
                     {/* Newsletter header */}
                     <div className="mb-5 flex items-start gap-3">
                       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#3154C4]/30 bg-[#00AEEF]/[0.08] text-[#00AEEF] shadow-[0_0_20px_rgba(0,174,239,0.06)]">
-                        <Mail
-                          size={19}
-                          strokeWidth={1.8}
-                        />
+                        <Mail size={19} strokeWidth={1.8} />
                       </span>
 
                       <div className="min-w-0">
@@ -526,8 +518,8 @@ const DesktopNavigation = ({
                         <div className="mt-1.5 h-px w-10 bg-[#20C997]" />
 
                         <p className="mt-2 max-w-[320px] font-['Inter'] text-[12px] leading-relaxed text-white/45">
-                          Subscribe to our newsletter for the
-                          latest updates and insights.
+                          Subscribe to our newsletter for the latest updates and
+                          insights.
                         </p>
                       </div>
                     </div>
@@ -542,9 +534,7 @@ const DesktopNavigation = ({
                         required
                         value={newsletterEmail}
                         onChange={(event) =>
-                          setNewsletterEmail(
-                            event.target.value,
-                          )
+                          setNewsletterEmail(event.target.value)
                         }
                         placeholder="Your email address"
                         aria-label="Email address"
@@ -556,10 +546,7 @@ const DesktopNavigation = ({
                         aria-label="Subscribe"
                         className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#3154C4] text-white transition-all duration-200 hover:scale-105 hover:bg-[#3B5FD0] hover:shadow-[0_6px_18px_rgba(49,84,196,0.3)] active:scale-95"
                       >
-                        <Send
-                          size={15}
-                          strokeWidth={2}
-                        />
+                        <Send size={15} strokeWidth={2} />
                       </button>
                     </form>
 
@@ -570,27 +557,18 @@ const DesktopNavigation = ({
                       </p>
 
                       <div className="flex items-center gap-3">
-                        {SOCIAL_LINKS.map(
-                          ({
-                            icon: Icon,
-                            href,
-                            label,
-                          }) => (
-                            <a
-                              key={label}
-                              href={href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={label}
-                              className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.09] bg-white/[0.025] text-white/65 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00AEEF]/40 hover:bg-[#00AEEF]/10 hover:text-[#00AEEF]"
-                            >
-                              <Icon
-                                size={17}
-                                strokeWidth={1.8}
-                              />
-                            </a>
-                          ),
-                        )}
+                        {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
+                          <a
+                            key={label}
+                            href={href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={label}
+                            className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/[0.09] bg-white/[0.025] text-white/65 transition-all duration-200 hover:-translate-y-0.5 hover:border-[#00AEEF]/40 hover:bg-[#00AEEF]/10 hover:text-[#00AEEF]"
+                          >
+                            <Icon size={17} strokeWidth={1.8} />
+                          </a>
+                        ))}
                       </div>
                     </div>
                   </div>

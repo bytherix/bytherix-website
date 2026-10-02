@@ -6,6 +6,7 @@ interface MegaMenuItemProps {
   icon: LucideIcon;
   onClick: () => void;
   compact?: boolean;
+  sub?: string;
 }
 
 const MegaMenuItem = ({

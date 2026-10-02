@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Sparkles } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 
 const PortfolioHero = () => {
   return (
