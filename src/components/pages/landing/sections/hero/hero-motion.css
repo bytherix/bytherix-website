@@ -1,0 +1,155 @@
+.hero-reveal {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  transition:
+    opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+[data-hero-ready="true"] .hero-reveal {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-reveal--heading {
+  transition-delay: 50ms;
+}
+
+.hero-reveal--description {
+  transition-delay: 130ms;
+}
+
+.hero-reveal--proof {
+  transition-delay: 210ms;
+}
+
+.hero-tech-orbit {
+  position: absolute;
+  z-index: 0;
+  top: 50%;
+  left: 50%;
+  width: min(94%, 680px);
+  aspect-ratio: 1;
+  pointer-events: none;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.hero-tech-orbit__ring {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(56, 189, 248, 0.15);
+  border-radius: 50%;
+  animation-play-state: paused;
+}
+
+.hero-tech-orbit__ring--outer {
+  inset: 3%;
+  border-top-color: rgba(56, 189, 248, 0.42);
+  border-right-color: rgba(23, 182, 167, 0.22);
+  animation: hero-orbit-clockwise 52s linear infinite;
+}
+
+.hero-tech-orbit__ring--middle {
+  inset: 13%;
+  border-color: rgba(23, 182, 167, 0.13);
+  border-bottom-color: rgba(23, 182, 167, 0.38);
+  transform: rotateX(62deg);
+  animation: hero-orbit-counterclockwise 68s linear infinite;
+}
+
+.hero-tech-orbit__ring--inner {
+  inset: 24%;
+  border-style: dashed;
+  border-color: rgba(56, 189, 248, 0.12);
+  border-left-color: rgba(56, 189, 248, 0.34);
+  animation: hero-orbit-clockwise 42s linear infinite;
+}
+
+.hero-tech-orbit.is-active .hero-tech-orbit__ring {
+  animation-play-state: running;
+}
+
+.hero-robot-float {
+  position: relative;
+}
+
+.hero-robot-float.is-active {
+  animation: hero-robot-float 7s ease-in-out infinite;
+}
+
+.hero-rotating-word {
+  background-size: 180% 100%;
+}
+
+.hero-rotating-word.is-current {
+  animation: hero-gradient-shift 12s ease-in-out infinite alternate;
+}
+
+@keyframes hero-orbit-clockwise {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes hero-orbit-counterclockwise {
+  to {
+    rotate: -360deg;
+  }
+}
+
+@keyframes hero-robot-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes hero-gradient-shift {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+@media (max-width: 767px) {
+  .hero-tech-orbit {
+    width: 100%;
+  }
+
+  .hero-tech-orbit__ring--outer {
+    animation-duration: 72s;
+  }
+
+  .hero-tech-orbit__ring--middle {
+    animation-duration: 88s;
+  }
+
+  .hero-tech-orbit__ring--inner {
+    display: none;
+  }
+
+  .hero-robot-float.is-active {
+    animation-duration: 9s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hero-tech-orbit__ring,
+  .hero-robot-float.is-active,
+  .hero-rotating-word.is-current {
+    animation: none;
+  }
+}
