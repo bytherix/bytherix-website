@@ -77,11 +77,6 @@ export const DROPDOWN_CONTENT: Record<string, DropdownSection[]> = {
           sub: "Insights, updates and news",
         },
         {
-          label: "Technology Stack",
-          icon: Cpu,
-          sub: "The technologies we build with",
-        },
-        {
           label: "Testimonials",
           icon: MessageSquareQuote,
           sub: "Hear from our happy clients",

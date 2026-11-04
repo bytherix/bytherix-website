@@ -49,7 +49,6 @@ const Navbar = ({ docked }: NavbarProps) => {
       "Our Team": "/our-team",
       "Our Story": "/our-story",
       "Blogs & Articles": "/blogs",
-      "Technology Stack": "/technology-stack",
       Founder: "/products/our-founder",
       "One For All Management System": "/products/one-for-all",
       "PAM": "/products/pam",
