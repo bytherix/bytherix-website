@@ -11,7 +11,6 @@ import { MotionConfig } from "framer-motion";
 
 import {
   createBrowserRouter,
-  Navigate,
   Outlet,
   RouterProvider,
   useLocation,
@@ -21,6 +20,9 @@ import {
 
 import Navbar from "./components/layout/navbar/Navbar";
 import BrandIntro from "./components/layout/BrandIntro";
+import Footer from "./components/layout/Footer";
+import RouteMeta from "./components/seo/RouteMeta";
+import RouteError from "./components/system/RouteError";
 import { ThemeProvider } from "./context/ThemeContext";
 import { AuthProvider } from "./context/AuthContext";
 import ThemeToggle from "./components/ui/ThemeToggle";
@@ -95,6 +97,8 @@ const TermsOfUse = lazy(
   () => import("./components/pages/legal/TermsOfUse")
 );
 
+const NotFound = lazy(() => import("./components/pages/notfound/NotFoundPage"));
+
 /**
  * Routes that render as dedicated, full-viewport experiences with no site
  * chrome (navbar / theme toggle). Auth pages own their entire screen.
@@ -164,9 +168,13 @@ function Layout() {
   return (
     <>
       <ScrollHandler />
+      <RouteMeta />
 
       {!isChromeless && (
         <>
+          <a href="#main-content" className="skip-link">
+            Skip to main content
+          </a>
           <ThemeToggle />
           {/*
             Keep the navbar mounted while pages change to preserve its state.
@@ -175,13 +183,17 @@ function Layout() {
         </>
       )}
 
-      {/*
-        Suspense here means the old page stays visible until the new
-        lazy chunk is ready — no blank flash between routes.
-      */}
-      <Suspense fallback={<PageLoader />}>
-        <Outlet />
-      </Suspense>
+      <div id="main-content" tabIndex={-1} className="outline-none">
+        {/*
+          Suspense here means the old page stays visible until the new
+          lazy chunk is ready — no blank flash between routes.
+        */}
+        <Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </Suspense>
+      </div>
+
+      {!isChromeless && <Footer />}
     </>
   );
 }
@@ -195,11 +207,20 @@ function createAppRouter() {
   return createBrowserRouter([
     {
       element: <Layout />,
+      errorElement: <RouteError />,
       children: [
 
         { path: "/", element: <HomeRoute /> },
         { path: "/about-company", element: <AboutCompany /> },
-        { path: "/our-team", element: <OurTeam /> },
+        {
+          path: "/our-team",
+          element: (
+            <main>
+              <h1 className="sr-only">Our Team &mdash; Bytherix Technology</h1>
+              <OurTeam />
+            </main>
+          ),
+        },
         { path: "/team/:slug", element: <TeamProfileRoute /> },
         { path: "/shop", element: <Shop /> },
         { path: "/products", element: <OurProducts /> },
@@ -215,7 +236,7 @@ function createAppRouter() {
         { path: "/terms-of-use", element: <TermsOfUse /> },
         { path: "/login", element: <LoginPage /> },
         { path: "/register", element: <RegisterPage /> },
-        { path: "*", element: <Navigate to="/" replace /> },
+        { path: "*", element: <NotFound /> },
       ],
     },
   ]);
@@ -246,13 +267,13 @@ function App() {
       <ThemeProvider>
         <AuthProvider>
           <DockedContext.Provider value={docked}>
-            <main
+            <div
               aria-hidden={introVisible}
               inert={introVisible}
               className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]"
             >
               <RouterProvider router={appRouter} />
-            </main>
+            </div>
             {introVisible && (
               <BrandIntro
                 onRevealStart={revealHome}

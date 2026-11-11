@@ -244,9 +244,11 @@ export default function Team() {
           </div>
         </div>
 
-        <div className="mt-1 flex items-center justify-center gap-1.5 sm:mt-2">
+        <div className="mt-1 flex items-center justify-center gap-1 sm:mt-2">
           {teamMembers.map((member, index) => (
-            <button key={member.id} type="button" aria-label={`Show ${member.name}`} aria-current={index === activeIndex ? "true" : undefined} onClick={() => setActiveIndex(index)} className={`h-1.5 rounded-full transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#3157D5]/40 dark:focus-visible:ring-[#7090FF]/50 ${index === activeIndex ? "w-7 bg-[#132A57] dark:bg-[#7090FF]" : "w-1.5 bg-[#B9C3D5] hover:bg-[#3157D5]/60 dark:bg-white/25 dark:hover:bg-[#7090FF]/70"}`} />
+            <button key={member.id} type="button" aria-label={`Show ${member.name}`} aria-current={index === activeIndex ? "true" : undefined} onClick={() => setActiveIndex(index)} className="group flex h-6 min-w-6 items-center justify-center px-1 focus-visible:outline-none">
+              <span className={`block h-1.5 rounded-full transition-all duration-500 group-focus-visible:ring-2 group-focus-visible:ring-[#3157D5]/40 dark:group-focus-visible:ring-[#7090FF]/50 ${index === activeIndex ? "w-7 bg-[#132A57] dark:bg-[#7090FF]" : "w-1.5 bg-[#B9C3D5] group-hover:bg-[#3157D5]/60 dark:bg-white/25 dark:group-hover:bg-[#7090FF]/70"}`} />
+            </button>
           ))}
         </div>
       </div>

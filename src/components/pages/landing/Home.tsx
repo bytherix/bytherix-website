@@ -8,7 +8,6 @@ const Courses = lazy(() => import("./sections/courses/Courses"));
 const Testimonials = lazy(() => import("./sections/testimonials/Testimonials"));
 const ContactHero = lazy(() => import("./sections/contact/layout/ContactHero"));
 const ContactSection = lazy(() => import("./sections/contact/ContactSection"));
-const Footer = lazy(() => import("../../layout/Footer"));
 
 function SectionLoader() {
   return <div className="w-full min-h-[200px] bg-[#050814]" />;
@@ -20,7 +19,7 @@ interface HomeProps {
 
 function Home({ docked }: HomeProps) {
   return (
-    <>
+    <main>
       <Hero docked={docked} />
 
       <Suspense fallback={<SectionLoader />}>
@@ -48,10 +47,8 @@ function Home({ docked }: HomeProps) {
           <ContactHero />
           <ContactSection />
         </section>
-
-        <Footer />
       </Suspense>
-    </>
+    </main>
   );
 }
 

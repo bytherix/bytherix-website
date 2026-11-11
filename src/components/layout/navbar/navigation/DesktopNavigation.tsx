@@ -1,22 +1,13 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 // import { useAuth } from "../../../context/AuthContext";
 
 import {
   ArrowRight,
-  Search,
-  Heart,
-  Bell,
   ChevronDown,
-  // UserRound,
-  // LogOut,
-  // UserCircle2,
-  // LogIn,
-  // UserPlus,
   Mail,
-  Send,
 } from "lucide-react";
 
 import {
@@ -89,7 +80,7 @@ const SOCIAL_LINKS = [
   {
     icon: FaFacebook,
     href: "https://www.facebook.com/profile.php?id=61591150259850",
-    label: "Twitter",
+    label: "Facebook",
   },
   {
     icon: FaInstagram,
@@ -98,12 +89,12 @@ const SOCIAL_LINKS = [
   },
   {
     icon: FaYoutube,
-    href: "https://www.youtube.com/@Bytherix_1",
+    href: "https://www.youtube.com/@Bytherix_Technology",
     label: "YouTube",
   },
   {
     icon: FaTiktok,
-    href: "https://www.tiktok.com/@bytherix",
+    href: "https://www.tiktok.com/@bytherixtechnology",
     label: "TikTok",
   },
 ];
@@ -123,8 +114,13 @@ const DesktopNavigation = ({
 
   // const [userMenuOpen, setUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement | null>(null);
+  const { pathname } = useLocation();
 
-  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const NAV_PATHS: Record<string, string> = {
+    Portfolios: "/portfolios",
+    Shop: "/shop",
+    Products: "/products",
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -153,11 +149,6 @@ const DesktopNavigation = ({
   //   setUserMenuOpen(false);
   //   navigate(path);
   // };
-
-  const handleNewsletterSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    setNewsletterEmail("");
-  };
 
   const showNewsletterColumn = activeDropdown === "Company";
 
@@ -191,6 +182,9 @@ const DesktopNavigation = ({
                   onClick={() => handleNavItemClick(item.label)}
                   onMouseEnter={() => setHoveredNavItem(item.label)}
                   onMouseLeave={() => setHoveredNavItem(null)}
+                  aria-current={
+                    NAV_PATHS[item.label] === pathname ? "page" : undefined
+                  }
                   className={`group relative flex items-center whitespace-nowrap py-2 font-['Inter'] text-[12px] font-bold uppercase tracking-[0.035em] transition-all duration-200 ${
                     isHovered ? "text-[#00AEEF]" : "text-white/85"
                   }`}
@@ -218,6 +212,8 @@ const DesktopNavigation = ({
               >
                 <button
                   type="button"
+                  aria-haspopup="true"
+                  aria-expanded={isDropdownOpen}
                   onClick={() =>
                     setActiveDropdown(isDropdownOpen ? null : item.label)
                   }
@@ -245,62 +241,6 @@ const DesktopNavigation = ({
             );
           })}
         </nav>
-
-        {/* Search */}
-        <div className="flex h-9 w-[180px] items-center rounded-full border border-white/25 bg-white/[0.035] pl-3 pr-1 transition-all duration-300 hover:border-white/40 hover:bg-white/[0.055] xl:h-10 xl:w-[205px]">
-          <Search
-            size={16}
-            strokeWidth={1.8}
-            className="shrink-0 text-white/55"
-          />
-
-          <input
-            type="text"
-            placeholder="Search"
-            aria-label="Search"
-            className="min-w-0 flex-1 bg-transparent px-2 font-['Inter'] text-xs text-white outline-none placeholder:text-white/40"
-          />
-
-          <button
-            type="button"
-            aria-label="Search"
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-[#080F29] transition-transform duration-200 hover:scale-105 active:scale-95"
-          >
-            <Search size={14} strokeWidth={2.5} />
-          </button>
-        </div>
-
-        {/* Wishlist */}
-        <button
-          type="button"
-          aria-label="Wishlist"
-          className="text-white/80 transition-all duration-200 hover:scale-105 hover:text-[#00AEEF] focus-visible:text-[#00AEEF] focus-visible:outline-none"
-        >
-          <Heart size={22} strokeWidth={1.7} />
-        </button>
-
-        {/* Notifications */}
-        <button
-          type="button"
-          aria-label="Notifications"
-          className="relative text-white/80 transition-all duration-200 hover:scale-105 hover:text-[#00AEEF] focus-visible:text-[#00AEEF] focus-visible:outline-none"
-        >
-          <Bell size={22} strokeWidth={1.7} />
-
-          <span className="absolute -right-1 -top-1 h-2 w-2 rounded-full bg-[#FF6575] ring-2 ring-[#080F29]" />
-        </button>
-
-        <Link
-          to="/demon-hunter"
-          aria-label="Demon Hunter"
-          className="group flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-black transition-all duration-200 hover:scale-105 hover:border-[#00AEEF] focus-visible:border-[#00AEEF] focus-visible:outline-none"
-        >
-          <img
-            src="/demon hunter.png"
-            alt="Demon Hunter"
-            className="h-full w-full object-cover transition-all duration-200 group-hover:scale-105"
-          />
-        </Link>
 
         {/* User Menu */}
         {/* <div className="relative" ref={userMenuRef}>
@@ -516,37 +456,11 @@ const DesktopNavigation = ({
                         <div className="mt-1.5 h-px w-10 bg-[#20C997]" />
 
                         <p className="mt-2 max-w-[320px] font-['Inter'] text-[12px] leading-relaxed text-white/45">
-                          Subscribe to our newsletter for the latest updates and
-                          insights.
+                          Follow our channels for updates, or reach us through
+                          the contact section.
                         </p>
                       </div>
                     </div>
-
-                    {/* Newsletter form */}
-                    <form
-                      onSubmit={handleNewsletterSubmit}
-                      className="mb-7 flex h-[58px] w-full items-center gap-2 rounded-2xl border border-white/[0.14] bg-white/[0.025] p-1.5 pl-5 transition-all duration-300 focus-within:border-[#00AEEF]/50 focus-within:bg-white/[0.04]"
-                    >
-                      <input
-                        type="email"
-                        required
-                        value={newsletterEmail}
-                        onChange={(event) =>
-                          setNewsletterEmail(event.target.value)
-                        }
-                        placeholder="Your email address"
-                        aria-label="Email address"
-                        className="min-w-0 flex-1 bg-transparent font-['Inter'] text-[12px] text-white outline-none placeholder:text-white/35"
-                      />
-
-                      <button
-                        type="submit"
-                        aria-label="Subscribe"
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#3154C4] text-white transition-all duration-200 hover:scale-105 hover:bg-[#3B5FD0] hover:shadow-[0_6px_18px_rgba(49,84,196,0.3)] active:scale-95"
-                      >
-                        <Send size={15} strokeWidth={2} />
-                      </button>
-                    </form>
 
                     {/* Follow Us */}
                     <div>

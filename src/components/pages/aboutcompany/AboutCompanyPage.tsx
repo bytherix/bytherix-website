@@ -5,7 +5,6 @@ import OurTeam from '../team/Team';
 import AllInOne from './sections/allinone/AllInOne';
 import BlogsPage from '../../pages/blogs/BlogsPage';
 import SDLCSection from "./sections/SDLCSection/SDLCSection";
-import Footer from '../../layout/Footer';
 
 export default function AboutCompanyPage() {
   return (
@@ -16,8 +15,7 @@ export default function AboutCompanyPage() {
       <AllInOne /> 
       <TechWorkflow />
       <SDLCSection />
-      <BlogsPage />
-      <Footer />
+      <BlogsPage embedded />
     </main>
   );
 }

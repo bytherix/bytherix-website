@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Account pages have no public content.
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://bytherixtechnology.com/sitemap.xml

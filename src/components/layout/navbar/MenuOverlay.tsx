@@ -1,6 +1,5 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router-dom";
 
 import {
   motion,
@@ -224,6 +223,69 @@ const MenuOverlay = ({
     onClose();
   };
 
+  /*
+   * Drawer dialog behaviour (BYX-009): Escape to close, focus kept inside the
+   * panel while it is open, and background scrolling locked.
+   */
+  const panelRef = useRef<HTMLElement | null>(null);
+  const closeRef = useRef(handleClose);
+
+  useEffect(() => {
+    closeRef.current = handleClose;
+  });
+
+  useEffect(() => {
+    if (!open) return;
+
+    const panel = panelRef.current;
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusableItems = () =>
+      panel
+        ? Array.from(
+            panel.querySelectorAll<HTMLElement>(
+              'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            ),
+          ).filter((element) => element.offsetParent !== null)
+        : [];
+
+    focusableItems()[0]?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeRef.current();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const items = focusableItems();
+      if (items.length === 0) return;
+
+      const first = items[0];
+      const last = items[items.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus?.();
+    };
+  }, [open]);
+
   const handleActionClick = (action: ActionType) => {
     setSelectedAction((previous) =>
       previous === action ? null : action,
@@ -309,6 +371,11 @@ const MenuOverlay = ({
               ================================================= */}
 
           <motion.aside
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation menu"
+            tabIndex={-1}
             variants={panelVariants}
             initial="hidden"
             animate="visible"
@@ -389,15 +456,17 @@ const MenuOverlay = ({
 
                   <input
                     type="text"
-                    placeholder="Search anything..."
-                    aria-label="Search"
-                    className="min-w-0 flex-1 bg-transparent px-2 font-['Inter'] text-xs text-white outline-none placeholder:text-white/40"
+                    disabled
+                    aria-label="Site search is not available yet"
+                    placeholder="Search is not available yet"
+                    className="min-w-0 flex-1 cursor-not-allowed bg-transparent px-2 font-['Inter'] text-xs text-white outline-none placeholder:text-white/40"
                   />
 
                   <button
                     type="button"
-                    aria-label="Search"
-                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#080F29] transition-transform duration-200 hover:scale-105 active:scale-95"
+                    disabled
+                    aria-label="Site search is not available yet"
+                    className="flex h-9 w-9 shrink-0 cursor-not-allowed items-center justify-center rounded-full bg-white/60 text-[#080F29] opacity-70 transition-transform duration-200"
                   >
                     <Search
                       size={14}
@@ -432,19 +501,6 @@ const MenuOverlay = ({
                     strokeWidth={1.7}
                   />
                 </button>
-
-                <Link
-                  to="/demon-hunter"
-                  onClick={handleClose}
-                  aria-label="Demon Hunter"
-                  className="group flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-black transition-all duration-200 hover:scale-105 hover:border-[#00AEEF] active:scale-95 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#00AEEF]/40"
-                >
-                  <img
-                    src="/demon hunter.png"
-                    alt="Demon Hunter"
-                    className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
-                  />
-                </Link>
 
                 {/* Notifications */}
 

@@ -23,7 +23,7 @@ export const serviceData: ServiceCardProps[] = [
       "Education websites",
       "E-commerce",
     ],
-    linkUrl: "/services/web-development",
+    linkUrl: "/#services",
   },
   {
     id: 2,
@@ -40,7 +40,7 @@ export const serviceData: ServiceCardProps[] = [
       "SaaS & Productivity Apps",
       "Cross Platform",
     ],
-    linkUrl: "/services/app-development",
+    linkUrl: "/#services",
   },
   {
     id: 3,
@@ -57,7 +57,7 @@ export const serviceData: ServiceCardProps[] = [
       "IOT/OT Penetration",
       "Cloud security",
     ],
-    linkUrl: "/services/security-audit",
+    linkUrl: "/#services",
   },
   {
     id: 4,
@@ -72,7 +72,7 @@ export const serviceData: ServiceCardProps[] = [
       "Azure",
       "Cloud Infrastructure",
     ],
-    linkUrl: "/services/cloud-solutions",
+    linkUrl: "/#services",
   },
   {
     id: 5,
@@ -87,7 +87,7 @@ export const serviceData: ServiceCardProps[] = [
       "Prototyping",
       "Design Systems",
     ],
-    linkUrl: "/services/ui-ux-design",
+    linkUrl: "/#services",
   },
   {
     id: 6,
@@ -102,7 +102,7 @@ export const serviceData: ServiceCardProps[] = [
       "Content Marketing",
       "Analytics",
     ],
-    linkUrl: "/services/digital-marketing",
+    linkUrl: "/#services",
   },
   {
     id: 7,
@@ -119,6 +119,6 @@ export const serviceData: ServiceCardProps[] = [
       "Chatbots",
       "Automation",
     ],
-    linkUrl: "/services/ai-solutions",
+    linkUrl: "/#services",
   },
 ];

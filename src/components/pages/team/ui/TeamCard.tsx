@@ -41,7 +41,6 @@ export default function TeamCard({ member, active = false, position }: TeamCardP
       onKeyDown={handleKeyDown}
       role="link"
       tabIndex={0}
-      aria-label={`View ${member.name}'s profile`}
       className={`group relative shrink-0 cursor-pointer overflow-hidden rounded-[18px] bg-[#F3F5F8] outline-none transition-shadow duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-[#3157D5] focus-visible:ring-offset-2 ${active ? "z-20" : "z-10"}`}
     >
       <motion.img

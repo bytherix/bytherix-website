@@ -22,7 +22,7 @@ const PortfolioCTA = () => {
 
             <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-bold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
               Let's build something
-              <span className="block text-[#2f4ebc]"> remarkable.</span>
+              <span className="block text-[#7090FF]"> remarkable.</span>
             </h2>
 
             <p className="mx-auto mt-5 max-w-xl text-base leading-7 text-slate-400">

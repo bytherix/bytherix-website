@@ -13,13 +13,16 @@ const PortfolioProjects = () => {
           transition={{ duration: 0.6 }}
           className="mb-4"
         >
+          <h1 className="sr-only">
+            Portfolio &mdash; Bytherix Technology projects
+          </h1>
           {/* <span className="text-xs font-semibold font-inter uppercase tracking-[0.22em] text-cyan-400">
             Featured Work
           </span> */}
 
           {/* <h2 className="mt-3 max-w-4xl text-3xl font-bold leading-tight tracking-tight text-[var(--text-primary)] md:text-5xl lg:text-6xl">
             Our
-            <span className=" text-[#2f4ebc]"> Projects</span>
+            <span className=" text-[#7090FF]"> Projects</span>
           </h2> */}
         </motion.div>
 

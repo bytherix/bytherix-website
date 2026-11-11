@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import NavbarBrand from "./NavbarBrand";
 import DesktopNavigation from "./navigation/DesktopNavigation";
 import MobileNavigation from "./navigation/MobileNavigation";
+import { SERVICE_MENU_ITEMS } from "./constants/navbar.constants";
 
 export interface NavbarProps {
   docked: boolean;
@@ -28,6 +29,23 @@ const Navbar = ({ docked }: NavbarProps) => {
     navigate(path);
     closeMenu();
   };
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") {
+        return;
+      }
+
+      setActiveDropdown(null);
+      setHoveredNavItem(null);
+      setMobileMenuOpen(false);
+      setMobileSearchOpen(false);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
 
   const scrollToSection = (id: string) => {
@@ -75,7 +93,9 @@ const Navbar = ({ docked }: NavbarProps) => {
       "Get a Quote": "contact",
     };
 
-    const sectionId = sectionMap[item];
+    const sectionId = SERVICE_MENU_ITEMS.includes(item)
+      ? "services"
+      : sectionMap[item];
 
     if (!sectionId) {
       closeMenu();

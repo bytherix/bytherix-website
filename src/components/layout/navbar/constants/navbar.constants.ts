@@ -2,17 +2,31 @@ import type { Variants } from "framer-motion";
 import type { LucideIcon } from "lucide-react";
 
 import {
+  BarChart3,
+  Blocks,
   BookOpen,
+  Bot,
   Box,
   BriefcaseBusiness,
   Building2,
   CircleHelp,
-  Cpu,
+  CircuitBoard,
+  CloudCog,
+  Code2,
+  //Cpu,
+  Gamepad2,
   GraduationCap,
   Headset,
+  Headphones,
   Mail,
+  Megaphone,
   MessageSquareQuote,
   Newspaper,
+  Palette,
+  PanelsTopLeft,
+  ShieldCheck,
+  ShoppingCart,
+  Smartphone,
   Sparkles,
   Store,
   Swords,
@@ -90,41 +104,41 @@ export const DROPDOWN_CONTENT: Record<string, DropdownSection[]> = {
     },
   ],
 
-  // Services: [
-  //   {
-  //     heading: "Technology",
-  //     sectionIcon: Cpu,
-  //     items: [
-  //       { label: "AI & Machine Learning", icon: Bot },
-  //       { label: "Cloud & DevOps", icon: CloudCog },
-  //       { label: "Cyber Security", icon: ShieldCheck },
-  //       { label: "IoT & Robotics", icon: Cpu },
-  //       { label: "Blockchain & Web3", icon: Blocks },
-  //       { label: "Data Analytics & BI", icon: ChartNoAxesCombined },
-  //     ],
-  //   },
-  //   {
-  //     heading: "Development",
-  //     sectionIcon: Code2,
-  //     items: [
-  //       { label: "Web Development", icon: Code2 },
-  //       { label: "App Development", icon: Contact },
-  //       { label: "Game Development", icon: Gamepad2 },
-  //       { label: "E-commerce Development", icon: ShoppingBag },
-  //       { label: "Maintenance & AMC", icon: Wrench },
-  //     ],
-  //   },
-  //   {
-  //     heading: "Creative",
-  //     sectionIcon: Palette,
-  //     items: [
-  //       { label: "UI/UX Design", icon: PenTool },
-  //       { label: "Digital Marketing", icon: Megaphone },
-  //       { label: "Graphic Design", icon: Palette },
-  //       { label: "AR/VR & 3D", icon: Layers3 },
-  //     ],
-  //   },
-  // ],
+  Services: [
+    {
+      heading: "Development",
+      sectionIcon: Code2,
+      items: [
+        { label: "Web Development", icon: Code2 },
+        { label: "Mobile App Development", icon: Smartphone },
+        { label: "Game Development", icon: Gamepad2 },
+        { label: "E-commerce Development", icon: ShoppingCart },
+        { label: "Maintenance & AMC", icon: Headphones },
+      ],
+    },
+    {
+      heading: "Technology",
+      sectionIcon: CircuitBoard,
+      items: [
+        { label: "Cloud & DevOps", icon: CloudCog },
+        { label: "AI/ML & Chatbots", icon: Bot },
+        { label: "Cyber Security", icon: ShieldCheck },
+        { label: "IoT & Robotics", icon: CircuitBoard },
+        { label: "Blockchain & Web3", icon: Blocks },
+      ],
+    },
+    {
+      heading: "Design & Growth",
+      sectionIcon: Palette,
+      items: [
+        { label: "UI/UX Design", icon: PanelsTopLeft },
+        { label: "Graphic Design", icon: Palette },
+        { label: "Digital Marketing", icon: Megaphone },
+        { label: "Data Analytics & BI", icon: BarChart3 },
+        { label: "AR/VR & 3D", icon: Box },
+      ],
+    },
+  ],
 
 Products: [
   {
@@ -172,6 +186,11 @@ Products: [
     },
   ],
 };
+
+export const SERVICE_MENU_ITEMS: readonly string[] =
+  DROPDOWN_CONTENT.Services.flatMap((section) =>
+    section.items.map((item) => item.label),
+  );
 
 export const dropdownVariants: Variants = {
   hidden: {

@@ -25,7 +25,7 @@ const PortfolioHero = () => {
 
           <h1 className="text-5xl font-bold text-[var(--text-primary)] font-inter leading-[1.02] tracking-tight md:text-6xl lg:text-7xl xl:text-8xl">
             Digital experiences
-           <span className="block text-[#2f4ebc]">
+           <span className="block text-[#7090FF]">
               built to stand out.
             </span>
           </h1>

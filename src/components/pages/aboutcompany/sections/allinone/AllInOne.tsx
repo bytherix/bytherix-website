@@ -145,7 +145,7 @@ const AllInOne: React.FC = () => {
             <ChevronLeft size={22} strokeWidth={2.5} />
           </button>
 
-          <div className="hidden items-center gap-[clamp(6px,0.7vw,10px)] md:flex">
+          <div className="hidden items-center gap-[clamp(0px,0.3vw,4px)] md:flex">
             {Array.from({ length: totalPages }).map((_, index) => (
               <button
                 key={index}
@@ -153,12 +153,16 @@ const AllInOne: React.FC = () => {
                 onClick={() => setActivePage(index)}
                 aria-label={`Go to service group ${index + 1}`}
                 aria-current={activePage === index ? "true" : undefined}
-                className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                  activePage === index
-                    ? "scale-125 bg-[#172867] dark:bg-white"
-                    : "bg-[#172867]/30 hover:bg-[#172867]/60 dark:bg-white/30 dark:hover:bg-white/60"
-                }`}
-              />
+                className="group flex h-6 w-6 items-center justify-center focus-visible:outline-none"
+              >
+                <span
+                  className={`block h-2 w-2 rounded-full transition-all duration-300 ${
+                    activePage === index
+                      ? "scale-125 bg-[#172867] dark:bg-white"
+                      : "bg-[#172867]/30 group-hover:bg-[#172867]/60 dark:bg-white/30 dark:group-hover:bg-white/60"
+                  }`}
+                />
+              </button>
             ))}
           </div>
 

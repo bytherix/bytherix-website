@@ -13,6 +13,8 @@ import {
   Star,
 } from "lucide-react";
 
+import { Link } from "react-router-dom";
+
 import {
   useRef,
   useState,
@@ -298,21 +300,19 @@ function CourseCard({
             </p>
           </div>
 
-          {/* <motion.button
-            type="button"
-            aria-label={`View ${course.title} course`}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex shrink-0 items-center gap-1 rounded-full border px-2.5 py-1.5 text-[7px] font-bold transition-all sm:gap-1.5 sm:px-3 sm:py-2 sm:text-[8px]"
+          <Link
+            to="/#contact"
+            aria-label={`Enquire about the ${course.title} course`}
+            className="flex shrink-0 items-center gap-1 rounded-full border px-2.5 py-1.5 text-[7px] font-bold transition-all hover:brightness-110 sm:gap-1.5 sm:px-3 sm:py-2 sm:text-[8px]"
             style={{
               borderColor: accent.border,
               backgroundColor: accent.background,
               color: accent.color,
             }}
           >
-            View
+            Enquire
             <ArrowRight size={10} />
-          </motion.button> */}
+          </Link>
         </div>
       </div>
     </motion.article>
@@ -572,12 +572,12 @@ export default function CourseShowcase() {
           transition={{ duration: 0.65 }}
           className="mb-10 max-w-3xl sm:mb-12"
         >
-          <h1 className="text-[32px] lg:text-[46px] xl:text-[52px] font-semibold leading-tight tracking-[-0.04em] text-[var(--course-card-text)] transition-colors duration-500">
+          <h2 className="text-[32px] lg:text-[46px] xl:text-[52px] font-semibold leading-tight tracking-[-0.04em] text-[var(--course-card-text)] transition-colors duration-500">
             Our{" "}
             <span className="text-[var(--color-navy)] ">
               Courses
             </span>
-          </h1>
+          </h2>
 
           <p className="mt-4 max-w- text-[15px] leading-7 text-[var(--course-card-muted)] transition-colors duration-500">
             Learn practical, in-demand technology skills through hands-on courses designed for real-world development.

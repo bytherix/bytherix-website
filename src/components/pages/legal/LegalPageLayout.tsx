@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import Footer from "../../layout/Footer";
 
 export interface LegalSection {
   title: string;
@@ -25,7 +24,7 @@ function LegalPageLayout({
       <main className="min-h-screen overflow-x-hidden bg-[var(--bg-primary)] py-8 text-[var(--text-primary)] sm:py-10 md:py-12">
         <div className="homepage-container">
           <header className="border-b border-[var(--border-primary)] pb-8 sm:pb-10">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--accent-blue)] sm:text-sm">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#9db8ff] sm:text-sm">
               Bytherix Technology <span aria-hidden="true">/</span> Legal
             </p>
             <h1 className="mt-4 max-w-4xl break-words text-4xl font-bold leading-tight tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-6xl">
@@ -75,7 +74,6 @@ function LegalPageLayout({
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

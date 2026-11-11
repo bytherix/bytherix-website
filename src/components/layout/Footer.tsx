@@ -98,17 +98,17 @@ const Footer = () => {
               </li>
               <li>
                 <Link to="/#services" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
-                  UI/UX Design
+                  App Development
                 </Link>
               </li>
               <li>
                 <Link to="/#services" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
-                  Software Development
+                  Security Audit
                 </Link>
               </li>
               <li>
                 <Link to="/#services" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
-                  Digital Solutions
+                  Cloud Solutions
                 </Link>
               </li>
             </ul>
@@ -181,13 +181,13 @@ const Footer = () => {
           </p>
 
           <div className="flex items-center gap-5">
-            <Link to="/privacy-policy" className="transition-colors duration-300 hover:text-white">
+            <Link to="/privacy-policy" className="text-white/70 transition-colors duration-300 hover:text-white">
               Privacy Policy
             </Link>
 
             <span className="h-4 w-px bg-white/15" />
 
-            <Link to="/terms-of-use" className="transition-colors duration-300 hover:text-white">
+            <Link to="/terms-of-use" className="text-white/70 transition-colors duration-300 hover:text-white">
               Terms of Use
             </Link>
           </div>

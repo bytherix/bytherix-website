@@ -51,7 +51,7 @@ const ProjectShowcase = ({
                 */}
               </div>
 
-             <h2 className="text-4xl font-bold leading-tight tracking-tight text-[#2f4ebc] md:text-5xl">
+             <h2 className="text-4xl font-bold leading-tight tracking-tight text-[#7090FF] md:text-5xl">
   {project.title}
 </h2>
 

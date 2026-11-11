@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Eye,
@@ -12,14 +12,19 @@ import {
   Check,
   ShieldCheck,
 } from "lucide-react";
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { isAxiosError } from "axios";
 
-import { registerUser } from "../../services/authService";
+import {
+  AuthNotConfiguredError,
+  isAuthConfigured,
+  registerUser,
+} from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const configured = isAuthConfigured();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -129,6 +134,13 @@ const RegisterForm = () => {
       return;
     }
 
+    if (!configured) {
+      setError(
+        "Account services are not available yet. Please contact Bytherix directly.",
+      );
+      return;
+    }
+
     try {
       setIsLoading(true);
 
@@ -153,15 +165,19 @@ const RegisterForm = () => {
       navigate("/", {
         replace: true,
       });
-    } catch (err: any) {
-      const message =
-        err?.response?.data?.message ||
-        err?.response?.data?.error ||
-        "Unable to create your account. Please try again.";
+    } catch (err: unknown) {
+      if (err instanceof AuthNotConfiguredError) {
+        setError(err.message);
+        return;
+      }
 
-      setError(
-        Array.isArray(message) ? message.join(", ") : message
-      );
+      const message = isAxiosError(err)
+        ? (err.response?.data?.message ??
+          err.response?.data?.error ??
+          "Unable to create your account. Please try again.")
+        : "Unable to create your account. Please try again.";
+
+      setError(Array.isArray(message) ? message.join(", ") : message);
     } finally {
       setIsLoading(false);
     }
@@ -169,6 +185,22 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {!configured && (
+        <div
+          role="status"
+          className="rounded-xl border border-amber-400/25 bg-amber-400/[0.07] px-3 py-2.5 text-[9px] leading-5 text-amber-200/90"
+        >
+          Online accounts are not available yet. You can still reach us at{" "}
+          <a
+            href="mailto:bytherix1@gmail.com"
+            className="font-semibold underline underline-offset-2 hover:text-white"
+          >
+            bytherix1@gmail.com
+          </a>
+          .
+        </div>
+      )}
+
       {/* =========================
           FULL NAME
       ========================== */}
@@ -421,21 +453,19 @@ const RegisterForm = () => {
 
           <span className="text-[9px] leading-5 text-white/45">
             I agree to the{" "}
-            <button
-              type="button"
-              onClick={(event) => event.preventDefault()}
+            <Link
+              to="/terms-of-use"
               className="font-medium text-logo-cyan transition-colors hover:text-white"
             >
               Terms of Service
-            </button>{" "}
+            </Link>{" "}
             and{" "}
-            <button
-              type="button"
-              onClick={(event) => event.preventDefault()}
+            <Link
+              to="/privacy-policy"
               className="font-medium text-logo-cyan transition-colors hover:text-white"
             >
               Privacy Policy
-            </button>
+            </Link>
           </span>
         </label>
       </div>
@@ -459,7 +489,7 @@ const RegisterForm = () => {
       ========================== */}
       <motion.button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || !configured}
         whileHover={
           isLoading
             ? undefined
@@ -495,62 +525,6 @@ const RegisterForm = () => {
           </>
         )}
       </motion.button>
-
-      {/* =========================
-          DIVIDER
-      ========================== */}
-      <div className="flex items-center justify-center gap-2 py-1 text-[8px] uppercase tracking-[0.16em] text-white/25">
-        <span className="h-px flex-1 bg-white/[0.07]" />
-
-        <span>Or sign up with</span>
-
-        <span className="h-px flex-1 bg-white/[0.07]" />
-      </div>
-
-      {/* =========================
-          SOCIAL BUTTONS
-      ========================== */}
-      <div className="flex items-center justify-center gap-3">
-        <motion.button
-          type="button"
-          aria-label="Continue with Google"
-          whileHover={{
-            y: -2,
-            scale: 1.02,
-          }}
-          whileTap={{
-            scale: 0.97,
-          }}
-          transition={{
-            duration: 0.15,
-            ease: "easeOut",
-          }}
-          className="flex h-10 flex-1 items-center justify-center gap-2 rounded-xl border border-white/[0.10] bg-white/[0.025] text-[11px] font-medium text-white/70 transition-all hover:border-logo-cyan/30 hover:bg-logo-cyan/[0.035] hover:text-white"
-        >
-          <FaGoogle className="h-4 w-4" />
-          <span>Google</span>
-        </motion.button>
-
-        <motion.button
-          type="button"
-          aria-label="Continue with GitHub"
-          whileHover={{
-            y: -2,
-            scale: 1.02,
-          }}
-          whileTap={{
-            scale: 0.97,
-          }}
-          transition={{
-            duration: 0.15,
-            ease: "easeOut",
-          }}
-          className="flex h-10 flex-1 items-center justify-center gap-2 rounded-xl border border-white/[0.10] bg-white/[0.025] text-[11px] font-medium text-white/70 transition-all hover:border-logo-cyan/30 hover:bg-logo-cyan/[0.035] hover:text-white"
-        >
-          <FaGithub className="h-4 w-4" />
-          <span>GitHub</span>
-        </motion.button>
-      </div>
     </form>
   );
 };

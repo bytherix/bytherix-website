@@ -103,20 +103,26 @@ const MobileNavigation = ({
               />
 
               <input
-                autoFocus
                 type="text"
-                placeholder="Search anything..."
-                className="min-w-0 flex-1 bg-transparent px-3 font-['Inter'] text-sm text-white outline-none placeholder:text-white/40"
+                disabled
+                aria-label="Site search is not available yet"
+                placeholder="Search is not available yet"
+                className="min-w-0 flex-1 cursor-not-allowed bg-transparent px-3 font-['Inter'] text-sm text-white/70 outline-none placeholder:text-white/40"
               />
 
               <button
                 type="button"
-                aria-label="Search"
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white text-[#080F29] transition-transform duration-200 hover:scale-105 active:scale-95"
+                disabled
+                aria-label="Site search is not available yet"
+                className="flex h-9 w-9 shrink-0 cursor-not-allowed items-center justify-center rounded-full bg-white/70 text-[#080F29] opacity-60"
               >
                 <Search size={15} strokeWidth={2.5} />
               </button>
             </div>
+
+            <p className="mt-2 px-3 text-center text-[11px] text-white/50">
+              Site search is not available yet. Please browse the menu instead.
+            </p>
           </motion.div>
         )}
       </AnimatePresence>

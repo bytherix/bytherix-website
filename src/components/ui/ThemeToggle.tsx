@@ -22,7 +22,7 @@ export default function ThemeToggle() {
         delay: 0.4,
         ease: [0.22, 1, 0.36, 1],
       }}
-      className="fixed right-4 top-1/2 z-[100] -translate-y-1/2 sm:right-6"
+      className="fixed bottom-4 right-4 z-[100] sm:bottom-auto sm:right-6 sm:top-1/2 sm:-translate-y-1/2"
     >
       <motion.button
         type="button"

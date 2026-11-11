@@ -40,7 +40,8 @@ const ProjectPreview = ({
           <a
             href={liveUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
+            aria-label={`Open the live ${title} project in a new tab`}
             className="text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
           >
             <ExternalLink size={15} />
@@ -58,10 +59,11 @@ const ProjectPreview = ({
             <a
               href={liveUrl}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition-transform duration-300 hover:scale-105"
             >
               View Live Project
+              <span className="sr-only"> &mdash; {title} (opens in a new tab)</span>
             </a>
           </div>
         </div>

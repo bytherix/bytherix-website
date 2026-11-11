@@ -120,6 +120,10 @@ export default function FeaturedProduct() {
                   <span className="h-2.5 w-2.5 rounded-full bg-[#20C997]/70" />
 
                   <div className="ml-3 h-2 w-20 rounded-full bg-slate-200 dark:bg-white/10" />
+
+                  <span className="ml-auto text-[10px] font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
+                    Illustrative preview
+                  </span>
                 </div>
 
                 {/* Dashboard */}

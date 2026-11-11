@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { isAxiosError } from "axios";
 import {
   Eye,
   EyeOff,
@@ -9,14 +10,18 @@ import {
   Loader2,
   ArrowRight,
 } from "lucide-react";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 
-import { loginUser } from "../../services/authService";
+import {
+  AuthNotConfiguredError,
+  isAuthConfigured,
+  loginUser,
+} from "../../services/authService";
 import { useAuth } from "../../context/AuthContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const configured = isAuthConfigured();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +36,13 @@ const LoginForm = () => {
     event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+
+    if (!configured) {
+      setError(
+        "Account services are not available yet. Please contact Bytherix directly."
+      );
+      return;
+    }
 
     setError("");
 
@@ -57,16 +69,22 @@ const LoginForm = () => {
       navigate("/", {
         replace: true,
       });
-    } catch (err: any) {
-      const message =
-        err?.response?.data?.message ||
-        err?.response?.data?.error ||
-        "Unable to sign in. Please check your credentials and try again.";
+    } catch (err: unknown) {
+      if (err instanceof AuthNotConfiguredError) {
+        setError(err.message);
+        return;
+      }
+
+      const message = isAxiosError(err)
+        ? err.response?.data?.message ||
+          err.response?.data?.error ||
+          "Unable to sign in. Please check your credentials and try again."
+        : "Unable to sign in. Please check your credentials and try again.";
 
       setError(
         Array.isArray(message)
           ? message.join(", ")
-          : message
+          : String(message)
       );
     } finally {
       setIsLoading(false);
@@ -78,6 +96,21 @@ const LoginForm = () => {
       onSubmit={handleSubmit}
       className="space-y-5"
     >
+      {!configured && (
+        <div
+          role="status"
+          className="rounded-[9px] border border-amber-400/25 bg-amber-400/[0.07] px-3.5 py-2.5 text-[11px] leading-5 text-amber-200"
+        >
+          Online accounts are not available yet. You can still reach us at{" "}
+          <a
+            href="mailto:bytherix1@gmail.com"
+            className="underline"
+          >
+            bytherix1@gmail.com
+          </a>
+          .
+        </div>
+      )}
       {/* =====================================================
           EMAIL
       ====================================================== */}
@@ -158,19 +191,6 @@ const LoginForm = () => {
       </div>
 
       {/* =====================================================
-          FORGOT PASSWORD
-      ====================================================== */}
-
-      <div className="flex justify-end">
-        <button
-          type="button"
-          className="text-[12px] font-medium text-[#1687ff] transition-colors hover:text-[#42a5ff]"
-        >
-          Forgot Password?
-        </button>
-      </div>
-
-      {/* =====================================================
           ERROR
       ====================================================== */}
 
@@ -186,7 +206,7 @@ const LoginForm = () => {
 
       <motion.button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || !configured}
         whileHover={
           isLoading
             ? undefined
@@ -222,54 +242,6 @@ const LoginForm = () => {
           </>
         )}
       </motion.button>
-
-      {/* =====================================================
-          DIVIDER
-      ====================================================== */}
-
-      <div className="flex items-center gap-3 text-[11px] text-[#77849a]">
-        <span className="h-px flex-1 bg-white/[0.08]" />
-
-        <span>or continue with</span>
-
-        <span className="h-px flex-1 bg-white/[0.08]" />
-      </div>
-
-      {/* =====================================================
-          SOCIAL BUTTONS
-      ====================================================== */}
-
-      <div className="flex gap-3">
-        <motion.button
-          type="button"
-          whileHover={{
-            y: -1,
-          }}
-          whileTap={{
-            scale: 0.98,
-          }}
-          className="flex h-11 flex-1 items-center justify-center gap-2 rounded-[9px] border border-[#263b61] bg-[#08142d]/75 text-[13px] text-[#e6ecf7] transition-all hover:border-[#1687ff]/40 hover:bg-[#0b1a38]"
-        >
-          <FaGoogle className="h-[17px] w-[17px]" />
-
-          <span>Google</span>
-        </motion.button>
-
-        <motion.button
-          type="button"
-          whileHover={{
-            y: -1,
-          }}
-          whileTap={{
-            scale: 0.98,
-          }}
-          className="flex h-11 flex-1 items-center justify-center gap-2 rounded-[9px] border border-[#263b61] bg-[#08142d]/75 text-[13px] text-[#e6ecf7] transition-all hover:border-[#1687ff]/40 hover:bg-[#0b1a38]"
-        >
-          <FaGithub className="h-[17px] w-[17px]" />
-
-          <span>GitHub</span>
-        </motion.button>
-      </div>
     </form>
   );
 };

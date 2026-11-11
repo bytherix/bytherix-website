@@ -181,7 +181,7 @@ export const TechMarquee = () => {
                 >
                     <h2 className="text-3xl font-semibold tracking-tight text-[var(--text-primary)] md:text-5xl">
                         Powered by Modern{" "}
-                        <span className="text-[#2f4ebc]">
+                        <span className="text-[#7090FF]">
                             Technologies
                         </span>
                     </h2>

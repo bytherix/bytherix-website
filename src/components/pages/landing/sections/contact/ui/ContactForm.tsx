@@ -5,20 +5,16 @@ import {
 } from "react";
 import { motion } from "framer-motion";
 
-interface ContactFormData {
-  companyName: string;
-  name: string;
-  email: string;
-  phone: string;
-  subject: string;
-  message: string;
-}
+import {
+  CONTACT_FALLBACK_EMAIL,
+  CONTACT_PHONE,
+  submitContact,
+  validateContact,
+  type ContactErrors,
+  type ContactPayload,
+} from "../../../../../../services/contactService";
 
-type ContactFormErrors = Partial<
-  Record<keyof ContactFormData, string>
->;
-
-const initialFormData: ContactFormData = {
+const initialFormData: ContactPayload = {
   companyName: "",
   name: "",
   email: "",
@@ -27,15 +23,23 @@ const initialFormData: ContactFormData = {
   message: "",
 };
 
+type FormStatus =
+  | "idle"
+  | "submitting"
+  | "success"
+  | "error"
+  | "unconfigured";
+
 const ContactForm = () => {
   const [formData, setFormData] =
-    useState<ContactFormData>(initialFormData);
+    useState<ContactPayload>(initialFormData);
 
   const [errors, setErrors] =
-    useState<ContactFormErrors>({});
+    useState<ContactErrors>({});
 
-  const [submitted, setSubmitted] =
-    useState(false);
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [honeypot, setHoneypot] = useState("");
 
   const handleChange = (
     event: ChangeEvent<
@@ -50,7 +54,7 @@ const ContactForm = () => {
     }));
 
     const fieldName =
-      name as keyof ContactFormData;
+      name as keyof ContactPayload;
 
     if (errors[fieldName]) {
       setErrors((previous) => ({
@@ -59,60 +63,58 @@ const ContactForm = () => {
       }));
     }
 
-    if (submitted) {
-      setSubmitted(false);
+    if (status !== "idle" && status !== "submitting") {
+      setStatus("idle");
+      setErrorMessage("");
     }
   };
 
-  const validate = (): ContactFormErrors => {
-    const newErrors: ContactFormErrors = {};
-
-    if (!formData.name.trim()) {
-      newErrors.name = "Your name is required.";
-    }
-
-    if (!formData.email.trim()) {
-      newErrors.email = "Email address is required.";
-    } else if (
-      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-        formData.email
-      )
-    ) {
-      newErrors.email =
-        "Please enter a valid email address.";
-    }
-
-    if (!formData.subject.trim()) {
-      newErrors.subject = "Subject is required.";
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = "Message is required.";
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = (
+  const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
 
-    const validationErrors = validate();
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      setSubmitted(false);
+    if (status === "submitting") {
       return;
     }
 
-    /*
-     * Backend/API can be connected here later.
-     * Currently this handles client-side validation.
-     */
+    const validationErrors = validateContact(formData);
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      setStatus("idle");
+      return;
+    }
 
     setErrors({});
-    setSubmitted(true);
+
+    /*
+     * Honeypot: real users never see or fill this field.
+     * Bots that do are silently ignored — nothing is sent.
+     */
+    if (honeypot.trim().length > 0) {
+      setStatus("success");
+      return;
+    }
+
+    setStatus("submitting");
+    setErrorMessage("");
+
+    const result = await submitContact(formData);
+
+    if (result.status === "success") {
+      setStatus("success");
+      setFormData(initialFormData);
+      return;
+    }
+
+    if (result.status === "unconfigured") {
+      setStatus("unconfigured");
+      return;
+    }
+
+    setErrorMessage(result.message);
+    setStatus("error");
   };
 
   /* =========================================================
@@ -490,71 +492,21 @@ const ContactForm = () => {
         </div>
 
         {/* ===================================================
-            RECAPTCHA
+            SPAM HONEYPOT (hidden from users and assistive tech)
         =================================================== */}
 
-        <div
-          className="
-            flex
-            min-h-[44px]
-            w-full
-            max-w-[350px]
-            items-center
-            justify-between
-            border
-            border-[var(--border-primary)]
-            bg-[var(--surface-secondary)]
-            px-3
-            py-2
-          "
-        >
-          <label
-            className="
-              flex
-              cursor-pointer
-              items-center
-              gap-2
-            "
-          >
-            <input
-              type="checkbox"
-              className="
-                h-4
-                w-4
-                cursor-pointer
-                accent-[var(--color-green)]
-              "
-            />
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="website">Website</label>
 
-            <span
-              className="
-                text-xs
-                font-medium
-                text-[var(--text-primary)]
-              "
-            >
-              I'm not a robot
-            </span>
-          </label>
-
-          <div
-            className="
-              text-right
-              text-[9px]
-              leading-4
-              text-[var(--text-muted)]
-            "
-          >
-            <span className="font-medium">
-              reCAPTCHA
-            </span>
-
-            <br />
-
-            <span className="text-[8px]">
-              Privacy - Terms
-            </span>
-          </div>
+          <input
+            id="website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={honeypot}
+            onChange={(event) => setHoneypot(event.target.value)}
+          />
         </div>
 
         {/* ===================================================
@@ -564,6 +516,8 @@ const ContactForm = () => {
         <div className="pt-1">
           <button
             type="submit"
+            disabled={status === "submitting"}
+            aria-busy={status === "submitting"}
             className="
               inline-flex
               h-11
@@ -584,17 +538,21 @@ const ContactForm = () => {
               focus-visible:ring-2
               focus-visible:ring-[var(--color-green)]
               focus-visible:ring-offset-2
+
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+              disabled:hover:translate-y-0
             "
           >
-            Send Message
+            {status === "submitting" ? "Sending…" : "Send Message"}
           </button>
         </div>
 
         {/* ===================================================
-            SUCCESS MESSAGE
+            FORM STATUS
         =================================================== */}
 
-        {submitted && (
+        {status === "success" && (
           <p
             role="status"
             className="
@@ -604,8 +562,55 @@ const ContactForm = () => {
               text-[var(--color-green)]
             "
           >
-            Thank you. Your message has been
-            validated successfully.
+            Thank you. Your message has been sent. Our
+            team will reply as soon as possible.
+          </p>
+        )}
+
+        {status === "error" && (
+          <p
+            role="alert"
+            className="
+              text-xs
+              font-medium
+              leading-4
+              text-red-500
+            "
+          >
+            {errorMessage}{" "}
+            <a
+              href={`mailto:${CONTACT_FALLBACK_EMAIL}`}
+              className="underline"
+            >
+              Email {CONTACT_FALLBACK_EMAIL}
+            </a>
+          </p>
+        )}
+
+        {status === "unconfigured" && (
+          <p
+            role="status"
+            className="
+              text-xs
+              font-medium
+              leading-5
+              text-[var(--text-secondary)]
+            "
+          >
+            This form is not connected to a message
+            service yet, so your message has not been
+            sent. Please email{" "}
+            <a
+              href={`mailto:${CONTACT_FALLBACK_EMAIL}`}
+              className="underline"
+            >
+              {CONTACT_FALLBACK_EMAIL}
+            </a>{" "}
+            or call{" "}
+            <a href="tel:+9779861165413" className="underline">
+              {CONTACT_PHONE}
+            </a>{" "}
+            and we will respond directly.
           </p>
         )}
       </form>

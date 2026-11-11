@@ -27,6 +27,13 @@ const AuthContext = createContext<AuthContextValue | undefined>(
 const TOKEN_KEY = "authToken";
 const USER_KEY = "authUser";
 
+/*
+ * Session storage is an interim hardening step: tokens are still readable by
+ * JavaScript (no httpOnly), but they no longer persist after the tab closes.
+ * The durable fix is a backend that issues httpOnly, Secure, SameSite cookies.
+ */
+const storage = window.sessionStorage;
+
 export const AuthProvider = ({
   children,
 }: {
@@ -36,8 +43,8 @@ export const AuthProvider = ({
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const storedToken = localStorage.getItem(TOKEN_KEY);
-    const storedUser = localStorage.getItem(USER_KEY);
+    const storedToken = storage.getItem(TOKEN_KEY);
+    const storedUser = storage.getItem(USER_KEY);
 
     if (storedToken) {
       setToken(storedToken);
@@ -47,22 +54,22 @@ export const AuthProvider = ({
       try {
         setUser(JSON.parse(storedUser));
       } catch {
-        localStorage.removeItem(USER_KEY);
+        storage.removeItem(USER_KEY);
       }
     }
   }, []);
 
   const login = (newToken: string, newUser: User) => {
-    localStorage.setItem(TOKEN_KEY, newToken);
-    localStorage.setItem(USER_KEY, JSON.stringify(newUser));
+    storage.setItem(TOKEN_KEY, newToken);
+    storage.setItem(USER_KEY, JSON.stringify(newUser));
 
     setToken(newToken);
     setUser(newUser);
   };
 
   const logout = () => {
-    localStorage.removeItem(TOKEN_KEY);
-    localStorage.removeItem(USER_KEY);
+    storage.removeItem(TOKEN_KEY);
+    storage.removeItem(USER_KEY);
 
     setToken(null);
     setUser(null);

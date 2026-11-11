@@ -22,12 +22,12 @@ const AboutOverview = ({ backgroundImage }: AboutOverviewProps) => {
 
       <div className="homepage-container relative z-10">
         <div className="mx-auto max-w-5xl text-center">
-          <h2 id="about-overview-title" className="font-inter text-4xl font-extrabold uppercase leading-[1.5] tracking-[-0.045em] text-[#14276B] sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 id="about-overview-title" className="font-inter text-4xl font-extrabold uppercase leading-[1.5] tracking-[-0.045em] text-[#14276B] sm:text-5xl md:text-6xl lg:text-7xl">
             <span className="dark:text-white/90">Your</span>{" "}
             <span className="dark:text-[#3157D5]">Imagination</span>
             <br />
             <span className="dark:text-white/90">Our Job</span>
-          </h2>
+          </h1>
         </div>
 
         <div className="mt-10 sm:mt-10 lg:mt-10">

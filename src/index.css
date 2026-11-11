@@ -10,3 +10,32 @@ body,
   background-color: #050814;
   color: #ffffff;
 }
+
+/* Accessibility: keyboard-only skip link (first focusable element in the app) */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 200;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  background: #ffffff;
+  color: #050814;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform 150ms ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid #00aeef;
+  outline-offset: 2px;
+}
+
+/* Accessibility: visible focus indicator for keyboard users */
+:focus-visible {
+  outline: 2px solid #00aeef;
+  outline-offset: 2px;
+}

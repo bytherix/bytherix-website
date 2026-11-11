@@ -245,22 +245,27 @@ export default function Services() {
             Bottom navigation
         ------------------------------------------------- */}
 
-        <div className="mt-8 flex items-center justify-between border-t border-[var(--border-secondary)] pt-5 transition-colors duration-500">
+        <div className="mt-8 flex items-center justify-between gap-2 border-t border-[var(--border-secondary)] pt-5 transition-colors duration-500">
           {/* Progress */}
 
-          <div className="flex items-center gap-1.5">
+          <div className="flex flex-wrap items-center gap-0.5">
             {Array.from({ length: maxIndex + 1 }).map((_, index) => (
               <button
                 key={index}
                 type="button"
                 aria-label={`Go to service ${index + 1}`}
+                aria-current={activeIndex === index ? "true" : undefined}
                 onClick={() => goTo(index)}
-                className={`h-1 rounded-full transition-all duration-500 ${
-                  activeIndex === index 
-                    ? "w-8 bg-[var(--color-green)]" 
-                    : "w-2 bg-[var(--border-primary)]"
-                }`}
-              />
+                className="group flex h-6 w-6 items-center justify-center rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-green)]"
+              >
+                <span
+                  className={`block h-1 shrink-0 rounded-full transition-all duration-500 ${
+                    activeIndex === index
+                      ? "w-8 bg-[var(--color-green)]"
+                      : "w-2 bg-[var(--border-primary)]"
+                  }`}
+                />
+              </button>
             ))}
           </div>
 
