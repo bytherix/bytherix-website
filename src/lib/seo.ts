@@ -1,5 +1,49 @@
+import { BLOG_SOCIAL_IMAGES } from "../components/pages/blogs/data/blog.social.ts";
+
 export const SITE_URL = "https://bytherixtechnology.com";
 export const SITE_NAME = "Bytherix Technology";
+
+export interface SocialImage {
+  path: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+/** Brand card used whenever a route has no image of its own. */
+export const DEFAULT_SOCIAL_IMAGE: SocialImage = {
+  path: "/og-image.png",
+  width: 1200,
+  height: 630,
+  alt: "Bytherix Technology logo",
+};
+
+/**
+ * Preview image for social/Open Graph tags. Articles have their own landscape
+ * artwork already displayed on the page, so they use it instead of the generic
+ * brand card; every other route falls back to the brand card.
+ *
+ * Uses the metadata-only table, never `BLOG_POSTS`, so article bodies stay out
+ * of the shared application bundle.
+ */
+export function socialImageFor(pathname: string): SocialImage {
+  const clean = pathname.replace(/\/+$/, "") || "/";
+
+  if (clean.startsWith("/blogs/")) {
+    const post = BLOG_SOCIAL_IMAGES.find((entry) => `/blogs/${entry.slug}` === clean);
+
+    if (post) {
+      return {
+        path: post.image,
+        width: post.width,
+        height: post.height,
+        alt: post.title,
+      };
+    }
+  }
+
+  return DEFAULT_SOCIAL_IMAGE;
+}
 
 export interface PageMeta {
   title: string;
@@ -24,32 +68,32 @@ const STATIC_META: Record<string, PageMeta> = {
   "/our-team": {
     title: "Our Team | Bytherix Technology",
     description:
-      "Meet the developers, designers and engineers behind Bytherix Technology's web, mobile, AI and cloud projects.",
+      "Meet the Bytherix Technology team in Kathmandu, Nepal, and the people behind our web, mobile, AI and cloud projects.",
   },
   "/shop": {
-    title: "Courses & Products | Bytherix Technology",
+    title: "Shop | Digital Products & Software by Bytherix Technology",
     description:
-      "Explore Bytherix Technology courses and digital products covering web development, app development, AI/ML, cybersecurity and more.",
+      "Explore digital products and software experiences built by Bytherix Technology for modern organizations, teams and everyday workflows.",
   },
   "/products": {
     title: "Products | Bytherix Technology",
     description:
-      "Software products built by Bytherix Technology, including the One For All management system, PAM and our founder-focused product line.",
+      "Software products built by Bytherix Technology, including the One For All management platform, the ARCK 103 PAM patient monitor and the Founder game concept.",
   },
   "/products/our-founder": {
-    title: "Our Founder | Bytherix Technology Products",
+    title: "Founder — The Beginning of Journey | Bytherix Technology",
     description:
-      "Discover Our Founder, a Bytherix Technology product built to support founders and small teams.",
+      "Founder — The Beginning of Journey is a story-driven game concept from Bytherix Technology, following a schoolboy whose family is destroyed by a boksi.",
   },
   "/products/one-for-all": {
     title: "One For All Management System | Bytherix Technology",
     description:
-      "One For All is a management system by Bytherix Technology for running day-to-day business operations in one place.",
+      "One For All is a cloud-based multi-business management platform by Bytherix Technology that brings sales, inventory, people, finance and reporting into one dashboard.",
   },
   "/products/pam": {
-    title: "PAM | Bytherix Technology",
+    title: "ARCK 103 PAM | Bytherix Technology",
     description:
-      "PAM is a Bytherix Technology product designed for practical, everyday business workflows.",
+      "ARCK 103 PAM is a compact multi-parameter patient monitor by Bytherix Technology that tracks ECG, heart rate, SpO2, pulse and temperature on-device.",
   },
   "/portfolios": {
     title: "Portfolio | Bytherix Technology Projects",

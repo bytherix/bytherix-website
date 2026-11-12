@@ -134,6 +134,31 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/our-story" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
+                  Our Story
+                </Link>
+              </li>
+              <li>
+                <Link to="/products" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
+                  Products
+                </Link>
+              </li>
+              <li>
+                <Link to="/portfolios" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
+                  Portfolios
+                </Link>
+              </li>
+              <li>
+                <Link to="/shop" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
+                  Shop
+                </Link>
+              </li>
+              <li>
+                <Link to="/blogs" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
+                  Blogs &amp; Articles
+                </Link>
+              </li>
+              <li>
                 <Link to="/#services" className="transition-all duration-300 hover:translate-x-1 hover:text-blue-400">
                   Our Services
                 </Link>

@@ -1,7 +1,14 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import { canonicalFor, NOT_FOUND_META, resolveMeta, SITE_NAME } from "../../lib/seo";
+import {
+  canonicalFor,
+  NOT_FOUND_META,
+  resolveMeta,
+  SITE_NAME,
+  SITE_URL,
+  socialImageFor,
+} from "../../lib/seo";
 
 const upsertMeta = (name: string, content: string, attribute: "name" | "property" = "name") => {
   let element = document.head.querySelector<HTMLMetaElement>(
@@ -52,15 +59,23 @@ const RouteMeta = () => {
     const meta = resolveMeta(pathname);
     const isNotFound = meta === NOT_FOUND_META;
     const canonical = isNotFound ? "" : canonicalFor(pathname);
+    const image = socialImageFor(pathname);
+    const imageUrl = `${SITE_URL}${image.path}`;
+    const ogType = !isNotFound && pathname.startsWith("/blogs/") ? "article" : "website";
 
     document.title = meta.title;
 
     upsertMeta("description", meta.description);
     upsertMeta("robots", meta.robots ?? "index, follow");
 
+    upsertMeta("og:type", ogType, "property");
     upsertMeta("og:title", meta.title, "property");
     upsertMeta("og:description", meta.description, "property");
     upsertMeta("og:site_name", SITE_NAME, "property");
+    upsertMeta("og:image", imageUrl, "property");
+    upsertMeta("og:image:width", String(image.width), "property");
+    upsertMeta("og:image:height", String(image.height), "property");
+    upsertMeta("og:image:alt", image.alt, "property");
 
     if (canonical) {
       upsertCanonical(canonical);
@@ -72,6 +87,8 @@ const RouteMeta = () => {
 
     upsertMeta("twitter:title", meta.title);
     upsertMeta("twitter:description", meta.description);
+    upsertMeta("twitter:image", imageUrl);
+    upsertMeta("twitter:image:alt", image.alt);
   }, [pathname]);
 
   return null;

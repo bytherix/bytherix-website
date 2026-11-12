@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import type { KeyboardEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import type { TeamMember } from "../data/team";
 
 interface TeamCardProps {
@@ -11,18 +10,6 @@ interface TeamCardProps {
 
 export default function TeamCard({ member, active = false, position }: TeamCardProps) {
   const isCenter = position === "center";
-  const navigate = useNavigate();
-
-  const openProfile = () => {
-    navigate(`/team/${member.slug}`);
-  };
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      openProfile();
-    }
-  };
 
   return (
     <motion.article
@@ -37,11 +24,7 @@ export default function TeamCard({ member, active = false, position }: TeamCardP
         duration: 0.75,
         ease: [0.22, 1, 0.36, 1],
       }}
-      onClick={openProfile}
-      onKeyDown={handleKeyDown}
-      role="link"
-      tabIndex={0}
-      className={`group relative shrink-0 cursor-pointer overflow-hidden rounded-[18px] bg-[#F3F5F8] outline-none transition-shadow duration-300 hover:shadow-xl focus-visible:ring-2 focus-visible:ring-[#3157D5] focus-visible:ring-offset-2 ${active ? "z-20" : "z-10"}`}
+      className={`group relative shrink-0 overflow-hidden rounded-[18px] bg-[#F3F5F8] transition-shadow duration-300 hover:shadow-xl focus-within:ring-2 focus-within:ring-[#3157D5] focus-within:ring-offset-2 ${active ? "z-20" : "z-10"}`}
     >
       <motion.img
         src={member.image}
@@ -58,7 +41,18 @@ export default function TeamCard({ member, active = false, position }: TeamCardP
 
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
 
-      <div className="pointer-events-none absolute right-4 top-4 z-20 flex h-9 w-9 translate-y-1 items-center justify-center rounded-full bg-white/90 text-[#132A57] opacity-0 shadow-md backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100" aria-hidden="true">
+      {/* Single anchor for the whole card: one navigation per activation, and
+          the article itself stays a plain (non-interactive) container. */}
+      <Link
+        to={`/team/${member.slug}`}
+        aria-label={`View ${member.name}'s profile`}
+        className="absolute inset-0 z-30 rounded-[18px] focus:outline-none"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-4 top-4 z-20 flex h-9 w-9 translate-y-1 items-center justify-center rounded-full bg-white/90 text-[#132A57] opacity-0 shadow-md backdrop-blur-sm transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100"
+      >
         <span className="text-base leading-none">↗</span>
       </div>
 
@@ -100,7 +94,7 @@ export default function TeamCard({ member, active = false, position }: TeamCardP
             </p>
           )}
 
-          <p className="mt-3 text-[8px] font-medium uppercase tracking-[0.14em] text-white/50 transition-colors duration-300 group-hover:text-white/80">
+          <p className="mt-3 text-[8px] font-medium uppercase tracking-[0.14em] text-white/50 transition-colors duration-300 group-hover:text-white/80 group-focus-within:text-white/80">
             View profile ↗
           </p>
         </motion.div>
