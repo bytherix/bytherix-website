@@ -9,7 +9,7 @@ export interface PageMeta {
 }
 
 const DEFAULT_DESCRIPTION =
-  "Bytherix Technology is a Kathmandu-based software company building web, mobile, AI/ML, cloud, cybersecurity and design solutions for businesses in Nepal and beyond.";
+  "Kathmandu-based software company building web, mobile, AI/ML, cloud, cybersecurity and design solutions for businesses in Nepal and beyond.";
 
 const STATIC_META: Record<string, PageMeta> = {
   "/": {
@@ -96,7 +96,7 @@ const STATIC_META: Record<string, PageMeta> = {
   },
 };
 
-const NOT_FOUND_META: PageMeta = {
+export const NOT_FOUND_META: PageMeta = {
   title: "Page Not Found | Bytherix Technology",
   description: "The page you requested could not be found on the Bytherix Technology website.",
   robots: "noindex, follow",
@@ -118,8 +118,29 @@ export function humanizeSlug(slug: string): string {
     .join(" ");
 }
 
+/**
+ * Keeps meta descriptions inside the length search engines actually display.
+ * Shared by the client-side route metadata and the build-time prerenderer so
+ * the server HTML and the hydrated DOM never disagree.
+ */
+export function clampDescription(text: string, max = 158): string {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (normalized.length <= max) return normalized;
+
+  const cut = normalized.slice(0, max - 1);
+  const lastSpace = cut.lastIndexOf(" ");
+  return `${(lastSpace > 100 ? cut.slice(0, lastSpace) : cut).replace(/[,;:.\s]+$/, "")}…`;
+}
+
 /** Resolves metadata for a pathname. Dynamic routes get a humanised fallback. */
 export function resolveMeta(pathname: string): PageMeta {
+  const meta = resolveMetaRaw(pathname);
+  const description = clampDescription(meta.description);
+
+  return description === meta.description ? meta : { ...meta, description };
+}
+
+function resolveMetaRaw(pathname: string): PageMeta {
   const clean = pathname.replace(/\/+$/, "") || "/";
   // URLs are case-sensitive on the web but routes here are lower-case; accept
   // mixed-case variants (e.g. /products/PAM) instead of falling through to 404 metadata.

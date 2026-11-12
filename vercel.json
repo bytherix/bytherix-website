@@ -4,12 +4,8 @@
   "buildCommand": "pnpm build",
   "installCommand": "pnpm install --frozen-lockfile",
   "outputDirectory": "dist",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/:path*",
@@ -20,7 +16,7 @@
   ],
   "headers": [
     {
-      "source": "/assets/(.*)",
+      "source": "/assets/:file([^/]+-[A-Za-z0-9_-]{8}\\.(?:js|css|png|jpe?g|svg|webp|avif|gif|ico|woff2?|ttf|eot))",
       "headers": [
         {
           "key": "Cache-Control",

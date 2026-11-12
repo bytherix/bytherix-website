@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import { canonicalFor, resolveMeta, SITE_NAME } from "../../lib/seo";
+import { canonicalFor, NOT_FOUND_META, resolveMeta, SITE_NAME } from "../../lib/seo";
 
 const upsertMeta = (name: string, content: string, attribute: "name" | "property" = "name") => {
   let element = document.head.querySelector<HTMLMetaElement>(
@@ -29,27 +29,46 @@ const upsertCanonical = (href: string) => {
   element.setAttribute("href", href);
 };
 
+const removeMeta = (name: string, attribute: "name" | "property" = "name") => {
+  document.head.querySelector(`meta[${attribute}="${name}"]`)?.remove();
+};
+
+const removeCanonical = () => {
+  document.head.querySelector('link[rel="canonical"]')?.remove();
+};
+
 /**
  * Keeps document title, description, canonical and social metadata in sync
  * with the current route. Rendered once inside the layout.
+ *
+ * The initial HTML already carries the correct tags for every prerendered
+ * route; this keeps client-side navigation consistent with them and removes
+ * the canonical on unknown paths, which must never claim to be indexable.
  */
 const RouteMeta = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
     const meta = resolveMeta(pathname);
-    const canonical = canonicalFor(pathname);
+    const isNotFound = meta === NOT_FOUND_META;
+    const canonical = isNotFound ? "" : canonicalFor(pathname);
 
     document.title = meta.title;
 
     upsertMeta("description", meta.description);
     upsertMeta("robots", meta.robots ?? "index, follow");
-    upsertCanonical(canonical);
 
     upsertMeta("og:title", meta.title, "property");
     upsertMeta("og:description", meta.description, "property");
-    upsertMeta("og:url", canonical, "property");
     upsertMeta("og:site_name", SITE_NAME, "property");
+
+    if (canonical) {
+      upsertCanonical(canonical);
+      upsertMeta("og:url", canonical, "property");
+    } else {
+      removeCanonical();
+      removeMeta("og:url", "property");
+    }
 
     upsertMeta("twitter:title", meta.title);
     upsertMeta("twitter:description", meta.description);
