@@ -3,10 +3,12 @@ import { teamMembers } from "../components/pages/team/data/team.ts";
 import {
   canonicalFor,
   clampDescription,
+  DEFAULT_SOCIAL_IMAGE,
   NOT_FOUND_META,
   resolveMeta,
   SITE_NAME,
   SITE_URL,
+  socialImageFor,
   type PageMeta,
 } from "./seo.ts";
 
@@ -23,10 +25,10 @@ import {
  * only - never by the browser bundle.
  */
 
-export const OG_IMAGE_PATH = "/og-image.png";
-export const OG_IMAGE_WIDTH = 1200;
-export const OG_IMAGE_HEIGHT = 630;
-export const OG_IMAGE_ALT = "Bytherix Technology logo";
+export const OG_IMAGE_PATH = DEFAULT_SOCIAL_IMAGE.path;
+export const OG_IMAGE_WIDTH = DEFAULT_SOCIAL_IMAGE.width;
+export const OG_IMAGE_HEIGHT = DEFAULT_SOCIAL_IMAGE.height;
+export const OG_IMAGE_ALT = DEFAULT_SOCIAL_IMAGE.alt;
 
 export interface BreadcrumbItem {
   name: string;
@@ -116,6 +118,7 @@ const websiteNode = () => ({
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   name: SITE_NAME,
+  alternateName: "Bytherix",
   url: `${SITE_URL}/`,
   inLanguage: "en",
   publisher: { "@id": `${SITE_URL}/#organization` },
@@ -155,6 +158,22 @@ function humanize(segment: string): string {
     .join(" ");
 }
 
+/**
+ * `Person.sameAs` must identify an account, not a repository or sub-page.
+ * Only known profile shapes are emitted, so a URL that points deeper (for
+ * example a GitHub repository) is left out rather than published as an
+ * identity claim.
+ */
+const PROFILE_URL_PATTERNS = [
+  /^https:\/\/www\.linkedin\.com\/in\/[^/]+\/?$/,
+  /^https:\/\/github\.com\/[^/]+\/?$/,
+];
+
+function isProfileUrl(url: string | undefined): url is string {
+  if (!url) return false;
+  return PROFILE_URL_PATTERNS.some((pattern) => pattern.test(url));
+}
+
 function structuredDataFor(path: string): Record<string, unknown>[] {
   const nodes: Record<string, unknown>[] = [];
 
@@ -184,6 +203,8 @@ function structuredDataFor(path: string): Record<string, unknown>[] {
   if (path.startsWith("/team/")) {
     const member = teamMembers.find((entry) => `/team/${entry.slug}` === path);
     if (member) {
+      const profiles = [member.linkedin, member.github].filter(isProfileUrl);
+
       nodes.push({
         "@context": "https://schema.org",
         "@type": "Person",
@@ -192,7 +213,7 @@ function structuredDataFor(path: string): Record<string, unknown>[] {
         url: canonicalFor(path),
         image: `${SITE_URL}${member.image}`,
         worksFor: { "@id": `${SITE_URL}/#organization` },
-        ...(member.linkedin ? { sameAs: [member.linkedin] } : {}),
+        ...(profiles.length > 0 ? { sameAs: profiles } : {}),
       });
     }
   }
@@ -269,6 +290,9 @@ export function renderSeoHead(entry: PrerenderRoute): string {
   const description = escapeHtml(entry.meta.description);
   const robots = escapeHtml(entry.meta.robots ?? "index, follow");
   const canonical = escapeHtml(entry.canonical);
+  const image = socialImageFor(entry.path);
+  const imageUrl = `${SITE_URL}${image.path}`;
+  const imageAlt = escapeHtml(image.alt);
 
   const lines = [
     `<title>${title}</title>`,
@@ -293,17 +317,17 @@ export function renderSeoHead(entry: PrerenderRoute): string {
   }
 
   lines.push(
-    `<meta property="og:image" content="${SITE_URL}${OG_IMAGE_PATH}" />`,
-    `<meta property="og:image:width" content="${OG_IMAGE_WIDTH}" />`,
-    `<meta property="og:image:height" content="${OG_IMAGE_HEIGHT}" />`,
-    `<meta property="og:image:alt" content="${escapeHtml(OG_IMAGE_ALT)}" />`,
+    `<meta property="og:image" content="${imageUrl}" />`,
+    `<meta property="og:image:width" content="${image.width}" />`,
+    `<meta property="og:image:height" content="${image.height}" />`,
+    `<meta property="og:image:alt" content="${imageAlt}" />`,
     `<meta property="og:locale" content="en_US" />`,
     "",
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${title}" />`,
     `<meta name="twitter:description" content="${description}" />`,
-    `<meta name="twitter:image" content="${SITE_URL}${OG_IMAGE_PATH}" />`,
-    `<meta name="twitter:image:alt" content="${escapeHtml(OG_IMAGE_ALT)}" />`,
+    `<meta name="twitter:image" content="${imageUrl}" />`,
+    `<meta name="twitter:image:alt" content="${imageAlt}" />`,
   );
 
   for (const node of entry.structuredData) {
